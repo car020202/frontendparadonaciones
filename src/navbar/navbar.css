@@ -1,0 +1,54 @@
+/* Estilos del Navbar */
+.navbar {
+    background-color: #007B8A; /* Color de fondo */
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Centra verticalmente los elementos */
+    padding: 0 20px; /* Elimina el padding superior e inferior */
+    height: 80px; /* Ajusta la altura de la navbar */
+  }
+  
+  /* Contenedor del logo en la Navbar */
+  .navbar-logo {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+  
+  /* Logo en la Navbar */
+  .navbar-logo .logo {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    margin-top: 20px; /* Baja el logo un poco más */
+  }
+  
+  /* Estilos de los enlaces de navegación */
+  .navbar-links {
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+  }
+  
+  .navbar-links li {
+    margin-left: 20px;
+  }
+  
+  .navbar-links li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 20px;
+    transition: color 0.3s ease;
+  }
+  
+  .navbar-links li a:hover {
+    color: #FFDD57;
+  }
+  
+  .navbar-links li a.active {
+    color: #FFF;
+  }
+  

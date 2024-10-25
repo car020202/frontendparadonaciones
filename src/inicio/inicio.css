@@ -1,0 +1,81 @@
+/* Banner */
+.banner-section {
+    background-image: url('../assets/background.jpg'); /* Cambia por la ruta de tu imagen */
+    background-size: cover;
+    background-position: center;
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+  }
+  
+  .banner-content h1 {
+    font-size: 4rem;
+    margin-bottom: 10px;
+  }
+  
+  .banner-content p {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .cta-button {
+    padding: 10px 20px;
+    background-color: #007B8A;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  
+  .cta-button:hover {
+    background-color: #005f6b;
+  }
+  
+  /* Carrusel */
+  .carousel-section {
+    margin-top: 50px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    text-align: center;
+  }
+  
+  .carousel-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .carousel-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    overflow-x: auto;
+  }
+  
+  .carousel-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    min-width: 300px;
+    text-align: center;
+  }
+  
+  .carousel-card img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .carousel-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .carousel-card p {
+    font-size: 1rem;
+  }
+  
