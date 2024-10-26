@@ -1,54 +1,38 @@
-/* Estilos del Navbar */
-.navbar {
-    background-color: #007B8A; /* Color de fondo */
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* Centra verticalmente los elementos */
-    padding: 0 20px; /* Elimina el padding superior e inferior */
-    height: 80px; /* Ajusta la altura de la navbar */
-  }
-  
-  /* Contenedor del logo en la Navbar */
+/* Fondo de la navbar y color de los enlaces */
+.custom-navbar {
+  background-color: #007B8A; /* Color de fondo personalizado */
+}
+
+.navbar-logo img {
+  margin-right: 10px;
+  border-radius: 50%; /* Logo circular */
+}
+
+.navbar-brand, .navbar-links .nav-link {
+  color: white !important; /* Color del texto */
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.navbar-links .nav-link:hover {
+  color: #FFDD57 !important; /* Color de hover en los enlaces */
+}
+
+.navbar-links .nav-link.active {
+  color: #FFFFFF !important; /* Color para el enlace activo */
+}
+/* Cambiar el color del icono de menú a blanco */
+.custom-toggle .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+  width: 30px;
+  height: 30px;
+}
+
+/* Centrar logo en pantallas pequeñas */
+@media (max-width: 768px) {
   .navbar-logo {
-    display: flex;
-    align-items: center;
-    height: 100%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
-  
-  /* Logo en la Navbar */
-  .navbar-logo .logo {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    margin-top: 20px; /* Baja el logo un poco más */
-  }
-  
-  /* Estilos de los enlaces de navegación */
-  .navbar-links {
-    list-style-type: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-    align-items: center;
-  }
-  
-  .navbar-links li {
-    margin-left: 20px;
-  }
-  
-  .navbar-links li a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 20px;
-    transition: color 0.3s ease;
-  }
-  
-  .navbar-links li a:hover {
-    color: #FFDD57;
-  }
-  
-  .navbar-links li a.active {
-    color: #FFF;
-  }
-  
+}

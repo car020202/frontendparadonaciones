@@ -1,81 +1,212 @@
 /* Banner */
 .banner-section {
-    background-image: url('../assets/background.jpg'); /* Cambia por la ruta de tu imagen */
-    background-size: cover;
-    background-position: center;
-    height: 70vh;
+  background-image: url('../assets/background.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+}
+
+.banner-content h1 {
+  font-size: 4rem;
+  margin-bottom: 10px;
+  font-family: 'Arial', sans-serif; /* Agregamos una fuente legible */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); /* Sombra para destacar el texto */
+}
+
+.banner-content p {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4); /* Sombra ligera en el párrafo */
+}
+
+.cta-button {
+  padding: 10px 20px;
+  background-color: #007b8a;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-family: 'Arial', sans-serif;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra para el botón */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Transición suave */
+  cursor: pointer;
+}
+
+.cta-button:hover {
+  background-color: #005f6b;
+  transform: scale(1.05); /* Efecto de agrandamiento al pasar el cursor */
+}
+
+/* Carrusel */
+.carousel-section {
+  margin-top: 50px;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  padding-left: 40px;
+  padding-right: 40px;
+  background-color: #f8f9fa; /* Fondo claro para resaltar el carrusel */
+}
+
+.carousel-image {
+  width: 100%;
+  height: 180px; /* Ajustamos la altura de las imágenes */
+  object-fit: cover;
+  border-radius: 10px; /* Bordes redondeados para las imágenes */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
+}
+
+/* Contenedor para mostrar 3 cards por slide */
+.card-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.carousel-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  width: 30%; /* Ajusta el ancho para que quepan 3 tarjetas en una fila */
+  text-align: center;
+  margin: 0 15px; /* Añade margen horizontal para separar las tarjetas entre sí */
+  transition: transform 0.3s ease;
+}
+
+.carousel-card:hover {
+  transform: scale(1.05); /* Efecto de zoom al pasar el mouse sobre las tarjetas */
+}
+
+.carousel-card h3 {
+  font-size: 1.7rem;
+  margin-bottom: 10px;
+  color: #007b8a; /* Color acorde al tema de la plataforma */
+  font-family: 'Arial', sans-serif;
+}
+
+.carousel-card p {
+  font-size: 1rem;
+  color: #555;
+  font-family: 'Arial', sans-serif;
+  margin-bottom: 15px;
+}
+
+/* Estilos para los botones de navegación del carrusel */
+.carousel-control-prev,
+.carousel-control-next {
+  margin-top: 11px;
+  width: 5%;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.1); /* Fondo transparente ligero */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%; /* Botones de navegación redondeados */
+  padding: 10px;
+}
+
+/* Para que los botones no se superpongan a las tarjetas */
+.carousel-control-prev,
+.carousel-control-next {
+  top: 50%;
+  transform: translateY(-50%);
+}
+/* Estilo para el botón Donate */
+.donate-button {
+  padding: 12px 24px;
+  background-color: #FF6B6B; /* Color rojo claro que destaca */
+  color: white;
+  border: none;
+  border-radius: 30px; /* Bordes redondeados */
+  font-size: 1.2rem;
+  font-weight: bold;
+  font-family: 'Arial', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(255, 107, 107, 0.4); /* Sombra suave */
+}
+
+.donate-button:hover {
+  background-color: #FF3B3B; /* Un tono más oscuro en hover */
+  transform: translateY(-2px); /* Efecto de levitación al hacer hover */
+  box-shadow: 0 6px 12px rgba(255, 107, 107, 0.6); /* Aumenta la sombra en hover */
+}
+
+.donate-button:active {
+  transform: translateY(0); /* Vuelve a su lugar al hacer clic */
+  box-shadow: 0 4px 8px rgba(255, 107, 107, 0.4); /* Sombra inicial */
+}
+
+/* Estilos de la Sección Informativa */
+.info-section {
+  margin-top: 75px;
+  background-color: #007b8a;
+  padding: 50px 20px;
+  text-align: left;
+  font-family: 'Arial', sans-serif;
+}
+
+.info-content {
+  max-width: 800px;
+  margin: 0 auto;
+  color: #ffffff;
+}
+
+.info-content h2 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.info-content p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.info-content a {
+  color: #007b8a;
+  text-decoration: underline;
+}
+
+.info-content a:hover {
+  color: #005f6b;
+}
+
+
+/* Responsive para el carrusel */
+@media (max-width: 768px) {
+  .card-container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    color: white;
-    text-align: center;
   }
-  
-  .banner-content h1 {
-    font-size: 4rem;
-    margin-bottom: 10px;
-  }
-  
-  .banner-content p {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-  }
-  
-  .cta-button {
-    padding: 10px 20px;
-    background-color: #007B8A;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.2rem;
-    cursor: pointer;
-  }
-  
-  .cta-button:hover {
-    background-color: #005f6b;
-  }
-  
-  /* Carrusel */
-  .carousel-section {
-    margin-top: 50px;
-    padding: 20px;
-    background-color: #f8f9fa;
-    text-align: center;
-  }
-  
-  .carousel-section h2 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-  }
-  
-  .carousel-container {
-    display: flex;
-    gap: 20px;
-    padding: 20px;
-    overflow-x: auto;
-  }
-  
+
   .carousel-card {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    min-width: 300px;
-    text-align: center;
+    width: 90%;
+    margin: 15px 0;
+    height: 550px; /* Ajusta la altura de cada card automáticamente */
+  }
+
+  /* Asegura que todas las cards tengan el mismo alto */
+  .carousel-card {
+    align-items: stretch;
   }
   
-  .carousel-card img {
-    width: 100%;
-    border-radius: 10px;
-    margin-bottom: 15px;
+  .carousel-section {
+    padding-left: 10px;
+    padding-right: 10px;
   }
   
-  .carousel-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-  }
-  
-  .carousel-card p {
-    font-size: 1rem;
-  }
-  
+}
+
+

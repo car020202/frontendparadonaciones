@@ -1,27 +1,38 @@
 import React from 'react';
-import './navbar.css';
+import { Navbar, Nav, Container } from 'react-bootstrap';
 import logo from '../assets/logo.webp';
+import './navbar.css';
 
-const Navbar = ({ isLoggedIn, onLogout }) => {
+const NavigationBar = ({ isLoggedIn, onLogout }) => {
   return (
-    <nav className="navbar">
-      <div className="navbar-logo">
-        <img src={logo} alt="Logo" className="logo" />
-      </div>
-      <ul className="navbar-links">
-        <li><a href="#inicio">Inicio</a></li>
-        <li><a href="#organizaciones">Organizaciones</a></li>
-        <li><a href="#campanas">Campañas</a></li>
-        <li><a href="#sobrenosotros">Sobre nosotros</a></li>
-        {/* Condicional: si está logueado, mostramos "Cerrar sesión"; si no, mostramos "Login" */}
-        {isLoggedIn ? (
-          <li><a href="#logout" onClick={onLogout}>Cerrar sesión</a></li>
-        ) : (
-          <li><a href="#login">Login</a></li>
-        )}
-      </ul>
-    </nav>
+    <Navbar expand="lg" className="custom-navbar">
+      <Container>
+        <Navbar.Brand href="#home" className="navbar-logo">
+          <img
+            src={logo}
+            width="50"
+            height="50"
+            className="d-inline-block align-top rounded-circle"
+            alt="Logo"
+          />
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" className="custom-toggle" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ms-auto navbar-links">
+            <Nav.Link href="#inicio">Inicio</Nav.Link>
+            <Nav.Link href="#organizaciones">Organizaciones</Nav.Link>
+            <Nav.Link href="#campanas">Campañas</Nav.Link>
+            <Nav.Link href="#sobrenosotros">Sobre Nosotros</Nav.Link>
+            {isLoggedIn ? (
+              <Nav.Link href="#logout" onClick={onLogout}>Cerrar sesión</Nav.Link>
+            ) : (
+              <Nav.Link href="#login">Login</Nav.Link>
+            )}
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 };
 
-export default Navbar;
+export default NavigationBar;
