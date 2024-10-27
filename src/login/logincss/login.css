@@ -73,7 +73,20 @@ html, body {
 .login-button {
   width: 100%;
   padding: 15px;
-  background-color: #007BFF;
+  background-color: #007B8A;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+}
+
+.registerL-button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 15px;
+  background-color: #007B8A;
   color: white;
   border: none;
   border-radius: 5px;
@@ -83,5 +96,8 @@ html, body {
 }
 
 .login-button:hover {
-  background-color: #0056b3;
+  background-color: #00626e;
+}
+.registerL-button:hover {
+  background-color: #00626e;
 }

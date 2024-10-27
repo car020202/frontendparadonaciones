@@ -18,6 +18,7 @@ const Login = () => {
           <input type="email" placeholder="Correo Electrónico" className="login-input" />
           <input type="password" placeholder="Contraseña" className="login-input" />
           <button type="submit" className="login-button">Iniciar</button>
+          <button type="submit" className="registerL-button">Registrarse</button>
         </form>
       </div>
     </div>
