@@ -15,11 +15,11 @@
 
 /* Contenedor del formulario de register */
 .register-container {
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(255, 255, 255, 0.9);
   padding: 60px;
   border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 650px; /* Aumenta el ancho del contenedor */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  width: 650px; /* Ajusta el ancho del contenedor */
   text-align: center;
 }
 
@@ -29,8 +29,8 @@
 }
 
 .logo {
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   margin-bottom: 20px;
   object-fit: cover;
@@ -38,26 +38,32 @@
 
 /* Título del formulario */
 .register-form h2 {
-  margin-bottom: 30px;
-  font-size: 38px;
-  color: #333;
+  margin-bottom: 20px;
+  font-size: 32px;
+  color: #007B8A;
 }
 
-/* Inputs organizados en filas */
+/* Fila de inputs para organización en dos columnas */
 .input-row {
   display: flex;
   justify-content: space-between;
   gap: 4%; /* Espacio entre los inputs */
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
+/* Inputs generales */
 .register-input {
-  width: 48%; /* Ajusta el ancho para dos columnas */
-  padding: 15px;
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
   border-radius: 5px;
   border: 1px solid #ccc;
   font-size: 1rem;
   box-sizing: border-box;
+}
+
+.register-input-half {
+  width: 48%; /* Ajusta el ancho para dos columnas */
 }
 
 /* Botón de Registro */
@@ -75,4 +81,18 @@
 
 .register-button:hover {
   background-color: #00626e;
+}
+
+/* Mensajes de éxito y error */
+.message {
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.error-message {
+  color: red;
+}
+
+.success-message {
+  color: green;
 }
