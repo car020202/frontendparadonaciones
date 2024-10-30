@@ -3,7 +3,7 @@ import Login from './login/login';
 import Home from './inicio/inicio';
 import Register from './register/register';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js'; // Importa el JS de Bootstrap
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'; 
 
 import './App.css'
 
@@ -12,7 +12,7 @@ function App() {
 
   return (
     <>
-      <Login/>
+      <Register/>
     </>
   )
 }

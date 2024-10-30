@@ -76,7 +76,7 @@
   width: 30%; /* Ajusta el ancho para que quepan 3 tarjetas en una fila */
   text-align: center;
   margin: 0 15px; /* Añade margen horizontal para separar las tarjetas entre sí */
-  transition: transform 0.3s ease;
+  transition: transform 0.8s ease;
 }
 
 .carousel-card:hover {
