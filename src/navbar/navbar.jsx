@@ -1,13 +1,21 @@
 import React from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.webp';
 import './navbar.css';
 
 const NavigationBar = ({ isLoggedIn, onLogout }) => {
+  const navigate = useNavigate();
+
+  const handleLogoutClick = () => {
+    onLogout();
+    navigate('/login'); // Redirige al usuario a la página de login
+  };
+
   return (
     <Navbar expand="lg" className="custom-navbar">
       <Container>
-        <Navbar.Brand href="#home" className="navbar-logo">
+        <Navbar.Brand as={Link} to="/" className="navbar-logo">
           <img
             src={logo}
             width="50"
@@ -19,14 +27,14 @@ const NavigationBar = ({ isLoggedIn, onLogout }) => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" className="custom-toggle" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto navbar-links">
-            <Nav.Link href="#inicio">Inicio</Nav.Link>
-            <Nav.Link href="#organizaciones">Organizaciones</Nav.Link>
-            <Nav.Link href="#campanas">Campañas</Nav.Link>
-            <Nav.Link href="#sobrenosotros">Sobre Nosotros</Nav.Link>
+            <Nav.Link as={Link} to="/">Inicio</Nav.Link>
+            <Nav.Link as={Link} to="/organizaciones">Organizaciones</Nav.Link>
+            <Nav.Link as={Link} to="/campanas">Campañas</Nav.Link>
+            <Nav.Link as={Link} to="/sobrenosotros">Sobre Nosotros</Nav.Link>
             {isLoggedIn ? (
-              <Nav.Link href="#logout" onClick={onLogout}>Cerrar sesión</Nav.Link>
+              <Nav.Link as="button" onClick={handleLogoutClick}>Cerrar sesión</Nav.Link>
             ) : (
-              <Nav.Link href="#login">Login</Nav.Link>
+              <Nav.Link as={Link} to="/login">Login</Nav.Link>
             )}
           </Nav>
         </Navbar.Collapse>

@@ -6,7 +6,7 @@ import { Carousel } from "react-bootstrap"; // Importamos el carrusel de react-b
 const Home = () => {
   return (
     <>
-      <Navbar />
+     
       <div>
         {/* Sección del Banner */}
         <section className="banner-section">
