@@ -4,6 +4,8 @@ import NavigationBar from './navbar/navbar';
 import Home from './inicio/inicio';
 import Login from './login/login';
 import Register from './register/register';
+import Dashboard from './admin/Dashboard';
+import Donaciones from './admin/stadisticas/Donaciones';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './App.css';
@@ -52,6 +54,9 @@ function App() {
             )
           }
         />
+        <Route path="/dashboard" element={<Dashboard />} />
+        
+        <Route path="/donaciones" element={<Donaciones />}/>
       </Routes>
     </Router>
   );
