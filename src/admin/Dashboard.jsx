@@ -2,9 +2,12 @@ import React from 'react';
 import './Dashboard.css'; 
 import { FaUsers, FaChartBar, FaBuilding, FaHandHoldingHeart, FaWallet, FaCogs, FaUserShield, FaTasks, FaHandsHelping } from 'react-icons/fa';
 import Footer from '../Footer/Footer';
+import NavbarAdmin from './NarbarAdmin';
 
 const AdminPanel = () => {
   return (
+    <>
+    <NavbarAdmin/>
     <div className="admin-panel">
       <h1 className="panel-title">Panel de Administración</h1>
       
@@ -74,8 +77,10 @@ const AdminPanel = () => {
           </div>
         </div>
       </section>
-      <Footer/>
+      
     </div>
+  
+    </>
   );
 };
 

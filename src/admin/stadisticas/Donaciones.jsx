@@ -3,7 +3,8 @@ import './Donacionescss/Donaciones.css';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js';
 import { FaChartBar, FaUsers, FaDollarSign } from 'react-icons/fa';
-import Footer from '../../Footer/Footer';
+import Navbar from '../NarbarAdmin';
+
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -79,6 +80,8 @@ const DonationsStatistics = () => {
   };
 
   return (
+    <>
+    <Navbar/>
     <div>
       <div className="donations-statistics">
         <h1 className="title">Estadísticas de Donaciones</h1>
@@ -91,7 +94,7 @@ const DonationsStatistics = () => {
         <Bar data={chartData} />
       </div>
 
-      {/* Cards con información adicional */}
+     
       <div className="cards-container">
         <div className="stat-cardD" onClick={() => handleCardClick(0)}>
           <FaDollarSign className="card-icon" />
@@ -115,8 +118,8 @@ const DonationsStatistics = () => {
           </div>
         </div>
       </div>
-      <Footer/>
     </div>
+    </>
   );
 };
 

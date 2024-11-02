@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.webp';
 import './navbar.css';
 
-const NavigationBar = ({ isLoggedIn, onLogout }) => {
+const NavigationBar = ({ onLogout }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
+  // Verificar el estado de autenticación al cargar el componente
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token); // Actualiza el estado basado en la existencia del token
+  }, []);
+
   const handleLogoutClick = () => {
+    localStorage.removeItem('token'); // Elimina el token del almacenamiento local
+    setIsLoggedIn(false);
     onLogout();
-    navigate('/login'); // Redirige al usuario a la página de login
+    
+    // Recargar la página automáticamente para limpiar el estado y redirigir al login
+    window.location.reload();
   };
 
   return (
@@ -32,9 +43,9 @@ const NavigationBar = ({ isLoggedIn, onLogout }) => {
             <Nav.Link as={Link} to="/campanas">Campañas</Nav.Link>
             <Nav.Link as={Link} to="/sobrenosotros">Sobre Nosotros</Nav.Link>
             {isLoggedIn ? (
-              <Nav.Link as="button" onClick={handleLogoutClick}>Cerrar sesión</Nav.Link>
+              <Nav.Link as={Link} onClick={handleLogoutClick} className="logout-link">Cerrar sesión</Nav.Link>
             ) : (
-              <Nav.Link as={Link} to="/login">Login</Nav.Link>
+              <Nav.Link as={Link} to="/login" className="login-link">Login</Nav.Link>
             )}
           </Nav>
         </Navbar.Collapse>

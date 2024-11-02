@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import NavigationBar from './navbar/navbar';
 import Home from './inicio/inicio';
 import Login from './login/login';
 import Register from './register/register';
@@ -26,7 +25,6 @@ function App() {
 
   return (
     <Router>
-      <NavigationBar isLoggedIn={isLoggedIn} onLogout={handleLogout} />
       <Routes>
         {/* Página de inicio, accesible para todos */}
         <Route path="/" element={<Home />} />
