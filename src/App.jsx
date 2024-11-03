@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './App.css';
 import CreateCausa from './Causas/CreateCausa';
+import VerCausas from './Causas/VerCausas';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -58,6 +59,9 @@ function App() {
         <Route path="/donaciones" element={<Donaciones />}/>
 
         <Route path="/crearcausa" element={<CreateCausa />}/>
+
+        <Route path="/vercausas" element={<VerCausas />}/>
+
       </Routes>
     </Router>
   );

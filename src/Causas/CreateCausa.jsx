@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import Navbar from '../navbar/navbar';
 import Footer from '../Footer/Footer';
-import './CreateCausa.css';
+import backgroundImage from '../assets/background.jpg';
+
+
 
 const CreateCausa = () => {
   const [title, setTitle] = useState('');
@@ -27,62 +29,72 @@ const CreateCausa = () => {
 
   return (
     <>
-    <Navbar/>
-    <div className="max-w-md mx-auto mt-8 p-4 border rounded shadow-md">
-      <h2 className="text-2xl font-bold mb-4">Crear tu Propia Causa de Recaudación</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label className="block text-sm font-medium mb-2" htmlFor="title">Título</label>
-          <input
-            type="text"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="w-full p-2 border rounded"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium mb-2" htmlFor="description">Descripción</label>
-          <textarea
-            id="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            className="w-full p-2 border rounded"
-            rows="4"
-            required
-          ></textarea>
-        </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium mb-2" htmlFor="images">Subir Imágenes</label>
-          <input
-            type="file"
-            id="images"
-            accept="image/*"
-            multiple
-            onChange={handleImageUpload}
-            className="w-full"
-          />
-          {images.length > 0 && (
-            <div className="mt-2">
-              <p className="text-sm">Imágenes seleccionadas:</p>
-              <ul className="list-disc ml-5 text-sm">
-                {images.map((image, index) => (
-                  <li key={index}>{image.name}</li>
-                ))}
-              </ul>
+      <Navbar />
+      <div className="create-causa-container" style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        padding: '100px 0',
+        height: '700px',
+      }}>
+
+        <div className="form-container" style={{
+          backgroundColor: 'white',
+          borderRadius: '10px',
+          padding: '20px',
+          maxWidth: '600px',
+          margin: '0 auto',
+          boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)'
+        }}>
+          <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Crear Causa</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group" style={{ marginBottom: '15px' }}>
+              <label htmlFor="title">Título:</label>
+              <input
+                type="text"
+                id="title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                style={{ width: '100%', padding: '8px', marginBottom: '10px' }}
+                required
+              />
             </div>
-          )}
+            <div className="form-group" style={{ marginBottom: '15px' }}>
+              <label htmlFor="description">Descripción:</label>
+              <textarea
+                id="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                style={{ width: '100%', padding: '8px', minHeight: '100px', marginBottom: '10px' }}
+                required
+              />
+            </div>
+            <div className="form-group" style={{ marginBottom: '15px' }}>
+              <label htmlFor="images">Agregar archivos:</label>
+              <input
+                type="file"
+                id="images"
+                multiple
+                onChange={handleImageUpload}
+                style={{ display: 'block', marginBottom: '10px' }}
+              />
+            </div>
+            <button type="submit" style={{
+              display: 'block',
+              width: '100%',
+              padding: '10px',
+              backgroundColor: '#007b8a',
+              color: 'white',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer'
+            }}>
+              Crear
+            </button>
+          </form>
         </div>
-        <button
-          type="submit"
-          className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
-        >
-          Crear Causa
-        </button>
-      </form>
-    </div>
-    <Footer/>
+      </div>
+      <Footer />
     </>
   );
 };
