@@ -8,6 +8,7 @@ import Donaciones from './admin/stadisticas/Donaciones';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './App.css';
+import CreateCausa from './Causas/CreateCausa';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -55,6 +56,8 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         
         <Route path="/donaciones" element={<Donaciones />}/>
+
+        <Route path="/crearcausa" element={<CreateCausa />}/>
       </Routes>
     </Router>
   );
