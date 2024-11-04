@@ -5,6 +5,7 @@ import Login from './login/login';
 import Register from './register/register';
 import Dashboard from './admin/Dashboard';
 import Donaciones from './admin/stadisticas/Donaciones';
+import Pagos from './admin/stadisticas/Pagos';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './App.css';
@@ -71,6 +72,22 @@ function App() {
           }
         />
         <Route
+          path="/pagos"
+          element={
+            <ProtectedRoute isLoggedIn={isLoggedIn}>
+              <Pagos />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/gestionarcausas"
+          element={
+            <ProtectedRoute isLoggedIn={isLoggedIn}>
+              <GestionarCausas />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/crearcausa"
           element={
             /* quite la ruta protegida por que no me dejaba ver el componente */
@@ -82,32 +99,35 @@ function App() {
         <Route
           path="/vercausas"
           element={
+            /* esta no debe estar protegida por que es para todo publico */
 
             <VerCausas />
 
           }
         />
+
+
         <Route
           path="/perfil"
           element={
+            /* esta si la pude proteger no da error */
             <ProtectedRoute isLoggedIn={isLoggedIn}>
+
               <Usuario />
             </ProtectedRoute>
           }
         />
         <Route
           path="/paginadonar"
-          element={<DonarPage />}
-        />
-
-        <Route
-          path="/gestionarcausas"
           element={
-            
-              <GestionarCausas />
-            
+            /* esta al igual que crear causa debe estar protegida pero no me cargaba cuando la protegi asi que la deje tal cual */
+            <DonarPage />
           }
         />
+
+
+
+
       </Routes>
     </Router>
   );

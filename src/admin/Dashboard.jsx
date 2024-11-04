@@ -22,7 +22,7 @@ const AdminPanel = () => {
             </div>
           </Link>
 
-          <Link to="/donaciones" className="stat-card">
+          <Link to="/pagos" className="stat-card">
             <FaWallet className="stat-icon" />
             <div className="stat-info">
               <h2>Pagos Realizados</h2>

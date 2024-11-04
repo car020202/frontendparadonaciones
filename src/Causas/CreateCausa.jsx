@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import Navbar from '../navbar/navbar';
 import Footer from '../Footer/Footer';
 import backgroundImage from '../assets/background2.webp';
-
-
+import './GestionarCausas.css'
 
 const CreateCausa = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [meta, setMeta] = useState('');
+  const [donationType, setDonationType] = useState([]);
   const [images, setImages] = useState([]);
 
   const handleImageUpload = (event) => {
@@ -15,15 +16,26 @@ const CreateCausa = () => {
     setImages((prevImages) => [...prevImages, ...files]);
   };
 
+  const handleDonationTypeChange = (event) => {
+    const { value, checked } = event.target;
+    if (checked) {
+      setDonationType((prev) => [...prev, value]);
+    } else {
+      setDonationType((prev) => prev.filter((type) => type !== value));
+    }
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     // Aquí podrías enviar los datos a una API o manejarlos como desees
-    console.log({ title, description, images });
+    console.log({ title, description, meta, donationType, images });
     alert('Causa creada con éxito!');
 
     // Resetear formulario después de enviar
     setTitle('');
     setDescription('');
+    setMeta('');
+    setDonationType([]);
     setImages([]);
   };
 
@@ -35,7 +47,7 @@ const CreateCausa = () => {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         padding: '100px 0',
-        height: '700px',
+        height: 'auto',
       }}>
 
         <div className="form-container" style={{
@@ -68,6 +80,50 @@ const CreateCausa = () => {
                 style={{ width: '100%', padding: '8px', minHeight: '100px', marginBottom: '10px' }}
                 required
               />
+            </div>
+            <div className="form-group" style={{ marginBottom: '15px' }}>
+              <label htmlFor="meta">Meta o Monto:</label>
+              <input
+                type="number"
+                id="meta"
+                value={meta}
+                onChange={(e) => setMeta(e.target.value)}
+                style={{ width: '100%', padding: '8px', marginBottom: '10px' }}
+                required
+              />
+            </div>
+            <div className="form-group" style={{ marginBottom: '15px' }}>
+              <label>Tipo de Donación:</label>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                <label>
+                  <input
+                    type="checkbox"
+                    value="Dinero"
+                    onChange={handleDonationTypeChange}
+                  /> Dinero
+                </label>
+                <label>
+                  <input
+                    type="checkbox"
+                    value="Servicio Social"
+                    onChange={handleDonationTypeChange}
+                  /> Servicio Social
+                </label>
+                <label>
+                  <input
+                    type="checkbox"
+                    value="Utensilios"
+                    onChange={handleDonationTypeChange}
+                  /> Utensilios
+                </label>
+                <label>
+                  <input
+                    type="checkbox"
+                    value="Todo"
+                    onChange={handleDonationTypeChange}
+                  /> Todo
+                </label>
+              </div>
             </div>
             <div className="form-group" style={{ marginBottom: '15px' }}>
               <label htmlFor="images">Agregar archivos:</label>

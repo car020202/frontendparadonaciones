@@ -82,7 +82,7 @@ const DonationsStatistics = () => {
   return (
     <>
     <Navbar/>
-    <div>
+    <div className='bodyadmin'>
       <div className="donations-statistics">
         <h1 className="title">Estadísticas de Donaciones</h1>
         <input 

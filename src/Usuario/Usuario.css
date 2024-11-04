@@ -1,5 +1,19 @@
+.me-2{
+  margin-bottom: 10px;
+}
+.tusdonaciones{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.donations-title{
+  text-align: center;
+  margin-bottom: 22px;
+  color: #333;
+}
 .user-profile-background {
-  height: 850px;
+  min-height: 850px;
   background-image: url('../assets/background2.webp');
   background-size: cover;
   background-position: center;
@@ -8,7 +22,7 @@
 
 .user-profile-container {
 
-  max-width: 600px;
+  max-width: 1500px;
   margin: 30px auto;
   padding: 20px;
   background-color: rgba(248, 249, 250, 0.9);
@@ -67,3 +81,67 @@
 .delete-button:hover {
   background-color: #b92433;
 }
+
+
+.user-profile-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .user-profile-background {
+    padding: 20px 10px;
+  }
+
+  .user-profile-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-image-container {
+    text-align: center;
+  }
+
+  .profile-image {
+    width: 100px;
+    height: 100px;
+  }
+
+  .user-profile-card {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .save-button, .delete-button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .delete-button {
+    margin-left: 0;
+  }
+
+  .donations-title {
+    font-size: 1.5rem;
+  }
+
+  .donation-item {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .progress-bar {
+    width: 100% !important;
+    margin-top: 10px;
+  }
+
+  .report-button {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+
