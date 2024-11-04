@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from '../navbar/navbar';
 import Footer from '../Footer/Footer';
 import backgroundImage from '../assets/background.jpg';
+import styled from "styled-components";
 
 const causasData = [
   {
