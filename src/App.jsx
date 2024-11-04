@@ -10,58 +10,75 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './App.css';
 import CreateCausa from './Causas/CreateCausa';
 import VerCausas from './Causas/VerCausas';
+import ProtectedRoute from './ProtectedRoute'; // Asegúrate de que la ruta sea correcta
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userRole, setUserRole] = useState(null);
 
- 
   useEffect(() => {
     const token = localStorage.getItem('token');
+    const role = localStorage.getItem('role');
     setIsLoggedIn(!!token);
+    setUserRole(role ? parseInt(role) : null);
   }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    setIsLoggedIn(false);
-  };
 
   return (
     <Router>
       <Routes>
-        {/* Página de inicio, accesible para todos */}
         <Route path="/" element={<Home />} />
-        
-        {/* Ruta de login */}
         <Route
           path="/login"
           element={
             isLoggedIn ? (
-              <Navigate to="/" replace /> 
+              <Navigate to={userRole === 1 ? '/dashboard' : '/'} replace />
             ) : (
               <Login setIsLoggedIn={setIsLoggedIn} />
             )
           }
         />
-        
-        {/* Ruta de registro */}
         <Route
           path="/register"
           element={
             isLoggedIn ? (
-              <Navigate to="/" replace /> 
+              <Navigate to={userRole === 1 ? '/dashboard' : '/'} replace />
             ) : (
               <Register />
             )
           }
         />
-        <Route path="/dashboard" element={<Dashboard />} />
-        
-        <Route path="/donaciones" element={<Donaciones />}/>
-
-        <Route path="/crearcausa" element={<CreateCausa />}/>
-
-        <Route path="/vercausas" element={<VerCausas />}/>
-
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute isLoggedIn={isLoggedIn && userRole === 1}>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/donaciones"
+          element={
+            <ProtectedRoute isLoggedIn={isLoggedIn}>
+              <Donaciones />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/crearcausa"
+          element={
+            <ProtectedRoute isLoggedIn={isLoggedIn && userRole === 1}>
+              <CreateCausa />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/vercausas"
+          element={
+            <ProtectedRoute isLoggedIn={isLoggedIn && userRole !== null}>
+              <VerCausas />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );

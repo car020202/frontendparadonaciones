@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './logincss/login.css';
 import logo from '../assets/logo.webp';
-import Navbar from '../navbar/navbar'
+import Navbar from '../navbar/navbar';
 
 const Login = ({ setIsLoggedIn }) => {
   const [email, setEmail] = useState('');
@@ -15,16 +15,25 @@ const Login = ({ setIsLoggedIn }) => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:3000/api/users/login', { email, password });
-      localStorage.setItem('token', response.data.token);
+      const { token, user } = response.data;
+      localStorage.setItem('token', token);
+      localStorage.setItem('role', user.roles);
       setIsLoggedIn(true);
+
       alert('Inicio de sesión exitoso');
-      navigate('/');
+
+      if (user.roles === 1) {
+        navigate('/dashboard');
+      } else if (user.roles === 2) {
+        navigate('/');
+      }
       window.location.reload();
     } catch (err) {
       setError('Credenciales inválidas');
     }
   };
 
+  // Define la función handleRegisterRedirect
   const handleRegisterRedirect = () => {
     navigate('/register');
   };
