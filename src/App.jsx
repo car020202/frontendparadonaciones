@@ -11,10 +11,10 @@ import './App.css';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Verificar el estado de autenticación al cargar la página
+ 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    setIsLoggedIn(!!token); // Actualiza el estado basado en si el token existe
+    setIsLoggedIn(!!token);
   }, []);
 
   const handleLogout = () => {
@@ -34,7 +34,7 @@ function App() {
           path="/login"
           element={
             isLoggedIn ? (
-              <Navigate to="/" replace /> // Si está logueado, redirige a inicio
+              <Navigate to="/" replace /> 
             ) : (
               <Login setIsLoggedIn={setIsLoggedIn} />
             )
@@ -46,7 +46,7 @@ function App() {
           path="/register"
           element={
             isLoggedIn ? (
-              <Navigate to="/" replace /> // Si está logueado, redirige a inicio
+              <Navigate to="/" replace /> 
             ) : (
               <Register />
             )
