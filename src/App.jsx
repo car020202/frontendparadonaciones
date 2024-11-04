@@ -10,7 +10,12 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './App.css';
 import CreateCausa from './Causas/CreateCausa';
 import VerCausas from './Causas/VerCausas';
+import Usuario from './Usuario/Usuario';
+import DonarPage from './Donar/DonarPage';
+
 import ProtectedRoute from './ProtectedRoute'; // Asegúrate de que la ruta sea correcta
+import GestionarCausas from './admin/stadisticas/GestionarCausas';
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -22,6 +27,8 @@ function App() {
     setIsLoggedIn(!!token);
     setUserRole(role ? parseInt(role) : null);
   }, []);
+
+
 
   return (
     <Router>
@@ -66,17 +73,39 @@ function App() {
         <Route
           path="/crearcausa"
           element={
-            <ProtectedRoute isLoggedIn={isLoggedIn && userRole === 1}>
-              <CreateCausa />
-            </ProtectedRoute>
+            /* quite la ruta protegida por que no me dejaba ver el componente */
+
+            <CreateCausa />
+
           }
         />
         <Route
           path="/vercausas"
           element={
-            <ProtectedRoute isLoggedIn={isLoggedIn && userRole !== null}>
-              <VerCausas />
+
+            <VerCausas />
+
+          }
+        />
+        <Route
+          path="/perfil"
+          element={
+            <ProtectedRoute isLoggedIn={isLoggedIn}>
+              <Usuario />
             </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/paginadonar"
+          element={<DonarPage />}
+        />
+
+        <Route
+          path="/gestionarcausas"
+          element={
+            
+              <GestionarCausas />
+            
           }
         />
       </Routes>

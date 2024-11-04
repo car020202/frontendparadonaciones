@@ -1,13 +1,13 @@
 .footer-container {
-    margin-top: 100px;
-    background-color: #ffffff; /* Color de fondo */
-    color: #000000; /* Color de texto */
+    background-color: #007b8a; /* Color de fondo */
+    color: #ffffff; /* Color de texto */
     padding: 20px;
     height: 250px;
     text-align: center;
   }
   
   .footer-content {
+    padding-top: 60px;
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -19,7 +19,7 @@
   }
   
   .footer-link {
-    color: #000000;
+    color: #ffffff;
     text-decoration: none;
     margin: 0 10px;
     font-size: 25px;
@@ -34,14 +34,14 @@
   }
   
   .icon-link {
-    color: #000000;
+    color: #ffffff;
     margin: 0 8px;
     font-size: 35px;
     transition: color 0.3s;
   }
   
   .icon-link:hover {
-    color: #007b8a; /* Color al pasar el cursor */
+    color: #FF6B6B; /* Color al pasar el cursor */
   }
   
   .footer-app-badges {

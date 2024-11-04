@@ -7,7 +7,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: rgb(255, 255, 255);
   text-align: center;
 }
 
@@ -41,17 +41,20 @@
   background-color: #005f6b;
   transform: scale(1.05); /* Efecto de agrandamiento al pasar el cursor */
 }
+.cqnta{
+  margin-bottom: 30px;
+}
 
 /* Carrusel */
 .carousel-section {
-  height: 60vh;
+  height: 600px;
   margin-top: 50px;
   padding: 20px;
   text-align: center;
   position: relative;
   padding-left: 40px;
   padding-right: 40px;
-  background-color: #f8f9fa; /* Fondo claro para resaltar el carrusel */
+  background-color: #ffffff; /* Fondo claro para resaltar el carrusel */
 }
 
 .carousel-image {
@@ -98,28 +101,9 @@
   margin-bottom: 15px;
 }
 
-/* Estilos para los botones de navegación del carrusel */
-.carousel-control-prev,
-.carousel-control-next {
-  margin-top: 11px;
-  width: 5%;
-  z-index: 1;
-  background-color: rgba(0, 0, 0, 0.1); /* Fondo transparente ligero */
-}
 
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 50%; /* Botones de navegación redondeados */
-  padding: 10px;
-}
 
-/* Para que los botones no se superpongan a las tarjetas */
-.carousel-control-prev,
-.carousel-control-next {
-  top: 50%;
-  transform: translateY(-50%);
-}
+
 /* Estilo para el botón Donate */
 .donate-button {
   padding: 12px 24px;
@@ -183,6 +167,20 @@
   color: #005f6b;
 }
 
+.btn-crearcausa{
+  width: 200px;
+  padding: 12px 24px;
+  background-color: #FF6B6B; /* Color rojo claro que destaca */
+  color: white;
+  border: none;
+  border-radius: 30px; /* Bordes redondeados */
+  font-size: 1.2rem;
+  font-weight: bold;
+  font-family: 'Arial', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(255, 107, 107, 0.4); /* Sombra suave */
+}
 
 
 /* Responsive para el carrusel */

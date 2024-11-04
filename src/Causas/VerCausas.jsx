@@ -29,11 +29,18 @@ const ViewCausas = () => {
   return (
     <>
       <Navbar />
+      <div className="button-container" style={{ display: 'flex', justifyContent: 'flex-end', padding: '20px 50px' }}>
+        <button className="create-causa-button" onClick={() => window.location.href = '/crearcausa'} style={{ backgroundColor: '#007B8A',
+           color: 'white', border: 'none', padding: '10px 20px', borderRadius: '5px', cursor: 'pointer', fontSize: '20px' }}>
+          Crear Causa
+        </button>
+      </div>
+
       <div className="view-causas-container" style={{
-        
+
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        padding: '100px 0',
+        padding: '10px 0',
         minHeight: '700px',
       }}>
         <div className="causas-list-container" style={{
@@ -54,16 +61,31 @@ const ViewCausas = () => {
                 padding: '20px',
                 width: '450px',
                 boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-                textAlign: 'center'
+                textAlign: 'left',
+                position: 'relative',
+                margin: '15px'
               }}>
-                <h3>{causa.title}</h3>
-                <p>{causa.description}</p>
-                <div className="causa-images" style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginTop: '10px' }}>
-                  {causa.images.map((image, index) => (
-                    <img key={index} src={image} alt={`Causa ${causa.id} - ${index}`} style={{ width: '100px', borderRadius: '5px' }} />
-                  ))}
+                <img src={causa.images[0]} alt={`Causa ${causa.id}`} style={{ width: '400px', height: '250px', objectFit: 'cover', borderRadius: '10px', marginBottom: '10px' }} />
+                <div style={{ padding: '10px' }}>
+                  <div style={{ position: 'absolute', top: '10px', left: '10px', backgroundColor: 'rgba(0, 0, 0, 0.6)', color: 'white', padding: '5px 10px', borderRadius: '5px', fontSize: '14px' }}>
+                    {causa.donations}
+                  </div>
+                  <h3 style={{ marginTop: '10px', fontSize: '20px' }}>{causa.title}</h3>
+                  <p style={{ fontSize: '18px', color: '#4a4a4a' }}>{causa.description}</p>
+                  
+                  <div style={{ height: '8px', width: '100%', backgroundColor: '#e0e0e0', borderRadius: '5px', margin: '10px 0' }}>
+                    <div style={{ width: '50%', height: '100%', backgroundColor: '#00c853', borderRadius: '5px' }}></div>
+                  </div>
+                  <button
+                          className="donate-button"
+                          onClick={() => window.location.href = `/paginadonar`}
+                        >
+                          Donar ahora
+                        </button>
                 </div>
               </div>
+              
+              
             ))}
           </div>
         </div>

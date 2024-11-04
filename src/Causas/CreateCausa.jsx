@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from '../navbar/navbar';
 import Footer from '../Footer/Footer';
-import backgroundImage from '../assets/background.jpg';
+import backgroundImage from '../assets/background2.webp';
 
 
 

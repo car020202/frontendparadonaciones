@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './registercss/register.css';
 import logo from '../assets/logo.webp';
+import Navbar from '../navbar/navbar'
 
 const Register = () => {
   const [nombre, setNombre] = useState('');
@@ -50,6 +51,8 @@ const Register = () => {
   };
 
   return (
+    <>
+    <Navbar/>
     <div className="register">
       <div className="register-container">
         <div className="logo-container">
@@ -101,6 +104,7 @@ const Register = () => {
         </form>
       </div>
     </div>
+    </>
   );
 };
 
