@@ -1,0 +1,71 @@
+.how-it-works {
+    text-align: center;
+    padding: 2rem;
+    background-color: #f9f9f9;
+    animation: fadeIn 1.5s ease-in-out;
+  }
+  
+  .steps {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+  }
+  
+  .step {
+    background-color: #fff;
+    padding: 1.5rem;
+    margin: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    animation: slideUp 1.2s ease-in-out;
+  }
+  
+  .step:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s;
+  }
+  
+  .step h3 {
+    color: #333;
+    margin-bottom: 0.5rem;
+  }
+  
+  .step p {
+    color: #555;
+  }
+  
+  .step-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideUp {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .step {
+      width: 100%;
+    }
+  }
+  

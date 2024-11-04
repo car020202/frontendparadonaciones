@@ -3,6 +3,7 @@ import { Container, Card, Form, Button, ProgressBar, ListGroup } from 'react-boo
 import { FaHandHoldingHeart } from 'react-icons/fa';
 import Navbar from '../navbar/navbar';
 import Footer from '../Footer/Footer';
+import { useNavigate } from 'react-router-dom';
 import './usuario.css';
 import logo from '../assets/logo.webp';
 
@@ -16,8 +17,9 @@ const Usuario = () => {
     { id: 3, name: 'Donación C', status: 'En curso', progress: 45 }
   ]);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
-    // Obtener los datos del usuario desde el almacenamiento local
     const storedUsername = localStorage.getItem('username');
     const storedEmail = localStorage.getItem('email');
     if (storedUsername) setUsername(storedUsername);
@@ -33,20 +35,20 @@ const Usuario = () => {
   };
 
   const handleSaveChanges = () => {
-    // Guardar los cambios realizados por el usuario
     localStorage.setItem('username', username);
-    // Aquí podrías agregar lógica adicional para actualizar el perfil en el backend
     alert('Perfil actualizado correctamente');
   };
 
   const handleDeleteAccount = () => {
-    // Eliminar la cuenta del usuario
     localStorage.removeItem('token');
     localStorage.removeItem('username');
     localStorage.removeItem('email');
-    // Aquí podrías agregar lógica adicional para eliminar la cuenta en el backend
     alert('Cuenta eliminada correctamente');
     window.location.reload();
+  };
+
+  const handleViewMisCausas = () => {
+    navigate('/vermiscausas');
   };
 
   return (
@@ -95,6 +97,9 @@ const Usuario = () => {
             <Button variant="danger" onClick={handleDeleteAccount} className="delete-button">
               Eliminar Cuenta
             </Button>
+            <Button variant="primary" onClick={handleViewMisCausas} className="view-causas-button">
+              Ver Mis Causas
+            </Button>
           </div>
 
           <div style={{ flex: 1, marginLeft: '10px', textAlign: 'center' }}>
@@ -110,17 +115,21 @@ const Usuario = () => {
                     </div>
                     {donation.status === 'En curso' && (
                       <div style={{ height: '8px', width: '75%', backgroundColor: '#e0e0e0', borderRadius: '5px', margin: '10px 0' }}>
-                      <div style={{ width: '50%', height: '100%', backgroundColor: '#00c853', borderRadius: '5px' }}></div>
-                    </div>
+                        <div style={{ width: `${donation.progress}%`, height: '100%', backgroundColor: '#00c853', borderRadius: '5px' }}></div>
+                      </div>
                     )}
                     {donation.status === 'Finalizada' && (
-                      <Button variant="info" className="report-button">Ver Informe</Button>
+                      <Button variant="info" className="report-button" onClick={() => navigate('/informe')}>Ver Informe</Button>
                     )}
                   </div>
+                  
                 </ListGroup.Item>
               ))}
             </ListGroup>
+
+            
           </div>
+          
 
         </Container>
       </div>

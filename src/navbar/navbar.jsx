@@ -52,7 +52,7 @@ const NavigationBar = ({ onLogout }) => {
               <NavDropdown.Item as={Link} to="/categorias/medioambiente">Medio Ambiente</NavDropdown.Item>
             </NavDropdown>
             <Nav.Link as={Link} to="/vercausas">Ver Causas</Nav.Link>
-            <Nav.Link as={Link} to="/sobrenosotros">Sobre Nosotros</Nav.Link>
+            <Nav.Link as={Link} to="/acercade">Sobre Nosotros</Nav.Link>
             {isLoggedIn ? (
               <>
                 <Nav.Link as={Link} onClick={handleLogoutClick} className="logout-link">Cerrar sesión</Nav.Link>

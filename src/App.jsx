@@ -12,10 +12,14 @@ import './App.css';
 import CreateCausa from './Causas/CreateCausa';
 import VerCausas from './Causas/VerCausas';
 import Usuario from './Usuario/Usuario';
+import Informe from './Usuario/Informe';
+import MisCausas from './Usuario/MisCausas';
+import ViewCausa from './Usuario/ViewCausa';
 import DonarPage from './Donar/DonarPage';
 
 import ProtectedRoute from './ProtectedRoute'; // Asegúrate de que la ruta sea correcta
 import GestionarCausas from './admin/stadisticas/GestionarCausas';
+import Acercade from './inicio/Acercade';
 
 
 function App() {
@@ -105,6 +109,15 @@ function App() {
 
           }
         />
+        <Route
+          path="/acercade"
+          element={
+            /* esta no debe estar protegida por que es para todo publico */
+
+            <Acercade />
+
+          }
+        />
 
 
         <Route
@@ -118,16 +131,42 @@ function App() {
           }
         />
         <Route
+          path="/informe"
+          element={
+            /* esta si la pude proteger no da error */
+            <ProtectedRoute isLoggedIn={isLoggedIn}>
+
+              <Informe />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/vermiscausas"
+          element={
+            
+            //ver mi lista de cusas 
+            <MisCausas />
+
+          }
+        />
+        <Route
+          path="/viewcausa"
+          element={
+            
+            //ver la causa cuando ya este finalizada
+            <ViewCausa />
+
+          }
+        />
+
+        <Route
           path="/paginadonar"
           element={
             /* esta al igual que crear causa debe estar protegida pero no me cargaba cuando la protegi asi que la deje tal cual */
             <DonarPage />
           }
         />
-
-
-
-
       </Routes>
     </Router>
   );
