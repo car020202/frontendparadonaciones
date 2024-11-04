@@ -1,12 +1,13 @@
 import React from "react";
-import "./inicio.css"; // Asegúrate de tener los estilos aquí
+import "./inicio.css"; 
 import Navbar from "../navbar/navbar";
-import { Carousel } from "react-bootstrap"; // Importamos el carrusel de react-bootstrap
+import Footer from "../Footer/Footer";
+import { Carousel } from "react-bootstrap"; 
 
 const Home = () => {
   return (
     <>
-     
+     <Navbar/>
       <div>
         {/* Sección del Banner */}
         <section className="banner-section">
@@ -82,6 +83,7 @@ const Home = () => {
           </div>
         </section>
       </div>
+      <Footer/>
     </>
   );
 };
