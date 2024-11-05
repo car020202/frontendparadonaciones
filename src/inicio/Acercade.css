@@ -1,71 +1,232 @@
-.how-it-works {
+/* About Us Section */
+.about-us {
+  background-color: #f3f3f3;
+  padding: 3rem 2rem;
+  border-radius: 8px;
+  margin: 2rem 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.about-us-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.about-us-text {
+  margin-left: 250px;
+  flex: 1;
+  max-width: 60%;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+}
+
+.about-us h2 {
+  font-size: 2.5rem;
+  color: #007b8a;
+  margin-bottom: 1rem;
+}
+
+.about-us p {
+  font-size: 1.2rem;
+  color: #555;
+  line-height: 1.6;
+  max-width: 800px;
+}
+
+.about-us-image {
+  flex: 1;
+  max-width: 400px;
+  height: auto;
+  margin-right: 250px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Our Mission Section */
+.our-mission {
+  background-color: #f3f3f3;
+  padding: 3rem 2rem;
+  border-radius: 8px;
+  margin: 2rem 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.our-mission-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.mission-image {
+
+  flex: 1;
+  max-width: 400px;
+  height: auto;
+  margin-left: 250px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mission-text {
+  flex: 1;
+  max-width: 60%;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+}
+
+.our-mission h2 {
+  font-size: 2.5rem;
+  color: #007b8a;
+  margin-bottom: 1rem;
+}
+
+.our-mission p {
+  font-size: 1.2rem;
+  color: #555;
+  line-height: 1.6;
+  max-width: 800px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .our-mission-content {
+    flex-direction: column;
     text-align: center;
-    padding: 2rem;
-    background-color: #f9f9f9;
-    animation: fadeIn 1.5s ease-in-out;
   }
-  
-  .steps {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    margin-top: 1.5rem;
+
+  .mission-image {
+    max-width: 80%;
+    margin: 0 auto 1.5rem auto;
   }
-  
+
+  .mission-text {
+    max-width: 100%;
+  }
+
+  .our-mission h2 {
+    font-size: 2rem;
+  }
+
+  .our-mission p {
+    font-size: 1.1rem;
+  }
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .about-us-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .about-us-text {
+    max-width: 100%;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-us-image {
+    max-width: 80%;
+    margin: 0 auto;
+  }
+
+  .about-us, .our-mission {
+    padding: 2rem 1rem;
+  }
+
+  .about-us h2, .our-mission h2 {
+    font-size: 2rem;
+  }
+
+  .about-us p, .our-mission p {
+    font-size: 1.1rem;
+  }
+}
+
+/* How it Works Section */
+.how-it-works {
+  text-align: center;
+  padding: 2rem;
+  background-color: #007b8a;
+  animation: fadeIn 1.5s ease-in-out;
+  background-image: url('../assets/image.png'); /* Asegúrate de colocar la imagen en la carpeta de assets */
+  background-size: cover; /* Hace que la imagen cubra toda la sección */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.how-it-works h1 {
+  color: #ffffff;
+}
+
+.steps {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.step {
+  background-color: #ffffff;
+  padding: 2rem 1.5rem;
+  margin: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 30%;
+  animation: slideUp 1.2s ease-in-out;
+  transition: transform 0.3s;
+  position: relative;
+}
+
+.step:hover {
+  transform: scale(1.05);
+}
+
+.step-icon {
+  font-size: 3rem;
+  color: #007b8a;
+  margin-bottom: 1rem;
+}
+
+.step h3 {
+  color: #007b8a;
+  margin-bottom: 0.5rem;
+  font-family: 'Arial', sans-serif;
+}
+
+.step p {
+  color: #555;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Animation keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
   .step {
-    background-color: #fff;
-    padding: 1.5rem;
-    margin: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    width: 30%;
-    animation: slideUp 1.2s ease-in-out;
-  }
-  
-  .step:hover {
-    transform: scale(1.05);
-    transition: transform 0.3s;
-  }
-  
-  .step h3 {
-    color: #333;
-    margin-bottom: 0.5rem;
-  }
-  
-  .step p {
-    color: #555;
-  }
-  
-  .step-image {
     width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 1rem;
   }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  
-  @keyframes slideUp {
-    from {
-      transform: translateY(20px);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .step {
-      width: 100%;
-    }
-  }
-  
+}
