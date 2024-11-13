@@ -44,7 +44,7 @@ const ViewCausas = () => {
         minHeight: '700px',
       }}>
         <div className="causas-list-container" style={{
-          backgroundColor: '#007B8A',
+          backgroundColor: '#f3f3f3',
           borderRadius: '10px',
           padding: '20px',
           maxWidth: '1600px',
@@ -52,7 +52,7 @@ const ViewCausas = () => {
           margin: '0 auto',
           boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)'
         }}>
-          <h2 style={{ textAlign: 'center', marginBottom: '20px', color: 'white' }}>Listado de Causas</h2>
+          <h2 style={{ textAlign: 'center', marginBottom: '20px', color: '#007c8c' }}>Listado de Causas</h2>
           <div className="causas-cards" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'center' }}>
             {causasData.map((causa) => (
               <div key={causa.id} className="causa-card" style={{

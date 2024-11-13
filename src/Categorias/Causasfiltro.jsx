@@ -33,14 +33,16 @@ const causasData = [
 ];
 
 const Causasfiltro = () => {
-    const location = useLocation();
-    const nombreCategoria = location.state?.nombreCategoria || 'Todas las Causas';
+  const location = useLocation();
+  const nombreCategoria = location.state?.nombreCategoria || 'Todas las Causas';
   return (
     <>
       <Navbar />
       <div className="button-container" style={{ display: 'flex', justifyContent: 'flex-end', padding: '20px 50px' }}>
-        <button className="create-causa-button" onClick={() => window.location.href = '/crearcausa'} style={{ backgroundColor: '#007B8A',
-           color: 'white', border: 'none', padding: '10px 20px', borderRadius: '5px', cursor: 'pointer', fontSize: '20px' }}>
+        <button className="create-causa-button" onClick={() => window.location.href = '/crearcausa'} style={{
+          backgroundColor: '#007B8A',
+          color: 'white', border: 'none', padding: '10px 20px', borderRadius: '5px', cursor: 'pointer', fontSize: '20px'
+        }}>
           Crear Causa
         </button>
       </div>
@@ -53,7 +55,7 @@ const Causasfiltro = () => {
         minHeight: '700px',
       }}>
         <div className="causas-list-container" style={{
-          backgroundColor: '#007B8A',
+          backgroundColor: '#f3f3f3',
           borderRadius: '10px',
           padding: '20px',
           maxWidth: '1600px',
@@ -61,16 +63,21 @@ const Causasfiltro = () => {
           margin: '0 auto',
           boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)'
         }}>
-          <h2 style={{ textAlign: 'center', marginBottom: '20px', color: 'white' }}>
+          <h1 style={{ textAlign: 'center', marginBottom: '20px', color: '#007c8c' }}>
             {nombreCategoria}
-          </h2>
-          <div className="causas-cards" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'space-around' }}>
+          </h1>
+          <div className="causas-cards" style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',  // Configura 3 columnas
+            gap: '20px',
+            justifyContent: 'center'
+          }}>
             {causasData.map((causa) => (
               <div key={causa.id} className="causa-card" style={{
                 backgroundColor: 'white',
                 borderRadius: '10px',
                 padding: '20px',
-                width: '300px',  // Adjusted width for 4 columns
+                width: '450px',
                 boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
                 textAlign: 'left',
                 position: 'relative',
@@ -83,17 +90,17 @@ const Causasfiltro = () => {
                   </div>
                   <h3 style={{ marginTop: '10px', fontSize: '20px' }}>{causa.title}</h3>
                   <p style={{ fontSize: '18px', color: '#4a4a4a' }}>{causa.description}</p>
-                  
+
                   <div style={{ height: '8px', width: '100%', backgroundColor: '#e0e0e0', borderRadius: '5px', margin: '10px 0' }}>
                     <div style={{ width: '50%', height: '100%', backgroundColor: '#00c853', borderRadius: '5px' }}></div>
                   </div>
                   <button
-                          className="donate-button"
-                          onClick={() => window.location.href = `/detallecausa`}
-                          style={{ backgroundColor: '#007B8A', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '5px', cursor: 'pointer' }}
-                        >
-                          Ver 
-                        </button>
+                    className="donate-button"
+                    onClick={() => window.location.href = `/detallecausa`}
+                    style={{ backgroundColor: '#007B8A', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '5px', cursor: 'pointer' }}
+                  >
+                    Ver
+                  </button>
                 </div>
               </div>
             ))}
