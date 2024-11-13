@@ -9,6 +9,7 @@ const Login = ({ setIsLoggedIn }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState(''); // Estado para el mensaje de éxito
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -16,24 +17,31 @@ const Login = ({ setIsLoggedIn }) => {
     try {
       const response = await axios.post('http://localhost:3000/api/users/login', { email, password });
       const { token, user } = response.data;
-      localStorage.setItem('token', token);
+      
+      // Guardar solo el token sin el prefijo "Bearer "
+      const cleanToken = token.replace("Bearer ", "");
+      localStorage.setItem('token', cleanToken);
       localStorage.setItem('role', user.roles);
       setIsLoggedIn(true);
 
-      alert('Inicio de sesión exitoso');
-
-      if (user.roles === 1) {
-        navigate('/dashboard');
-      } else if (user.roles === 2) {
-        navigate('/');
-      }
-      window.location.reload();
+      // Mostrar mensaje de éxito en lugar de alert
+      setSuccessMessage('Inicio de sesión exitoso');
+      setError('');
+      
+      // Redirigir después de un breve retardo
+      setTimeout(() => {
+        if (user.roles === 1) {
+          navigate('/dashboard');
+        } else if (user.roles === 2) {
+          navigate('/');
+        }
+      }, 1000); // Redirigir después de 1 segundo
     } catch (err) {
       setError('Credenciales inválidas');
+      setSuccessMessage('');
     }
   };
 
-  // Define la función handleRegisterRedirect
   const handleRegisterRedirect = () => {
     navigate('/register');
   };
@@ -67,6 +75,7 @@ const Login = ({ setIsLoggedIn }) => {
               <button type="button" className="registerL-button" onClick={handleRegisterRedirect}>Registrar</button>
             </div>
             {error && <p style={{ color: 'red' }}>{error}</p>}
+            {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
           </form>
         </div>
       </div>
