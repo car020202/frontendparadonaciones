@@ -20,6 +20,9 @@ import DonarPage from './Donar/DonarPage';
 import ProtectedRoute from './ProtectedRoute'; // Asegúrate de que la ruta sea correcta
 import GestionarCausas from './admin/stadisticas/GestionarCausas';
 import Acercade from './inicio/Acercade';
+import Categorias from './Categorias/Categorias';
+import Causasfiltro from './Categorias/Causasfiltro';
+import CausaDetalle from './Causas/CausaDetalle';
 
 
 function App() {
@@ -106,6 +109,33 @@ function App() {
             /* esta no debe estar protegida por que es para todo publico */
 
             <VerCausas />
+
+          }
+        />
+        <Route
+          path="/detallecausa"
+          element={
+            /* esta no debe estar protegida por que es para todo publico */
+
+            <CausaDetalle />
+
+          }
+        />
+        <Route
+          path="/categorias"
+          element={
+            /* esta no debe estar protegida por que es para todo publico */
+
+            <Categorias />
+
+          }
+        />
+        <Route
+          path="/vercausacategoria"
+          element={
+            /* esta no debe estar protegida por que es para todo publico */
+
+            <Causasfiltro />
 
           }
         />

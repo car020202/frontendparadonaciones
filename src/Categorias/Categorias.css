@@ -1,0 +1,98 @@
+.categorias-container {
+    border-radius: 10px;
+    padding: 50px;
+    background-color: #f3f3f3;
+    color: #fff;
+    text-align: center;
+    margin: 0 auto; /* Center the container */
+    margin-top: 75px;
+    margin-bottom: 75px;
+    max-width: 1600px; /* Add max-width to control container width */
+  }
+  
+  .categorias-container h1 {
+    margin-bottom: 20px;
+    color: #007c8c;
+    margin-bottom: 50px;
+  }
+  
+  .categorias-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* Set to 6 columns */
+    gap: 50px;
+    justify-items: center;
+  }
+  
+  .categoria-card {
+    background-color: #f9f9f9;
+    color: #333;
+    width: 200px;
+    height: 175px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transition: transform 0.2s;
+  }
+
+  .categoria-card-link {
+    text-decoration: none;
+    color: inherit; 
+  }
+  
+  
+  .categoria-card:hover {
+    transform: scale(1.05);
+  }
+  .icon {
+    font-size: 60px; /* Adjust size as needed */
+   
+    color: #007c8c; /* Customize icon color if needed */
+  }
+  
+  .categoria-card h3 {
+    font-size: 19px;
+    margin: 0;
+    color: #007c8c;
+  }
+  /* Responsiveness - Adjust grid columns for smaller screens */
+@media (max-width: 1200px) {
+  .categorias-grid {
+    grid-template-columns: repeat(4, 1fr); /* 4 columns on medium screens */
+  }
+}
+
+@media (max-width: 992px) {
+  .categorias-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 columns on tablet screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .categorias-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on small screens */
+  }
+}
+
+@media (max-width: 576px) {
+  .categorias-grid {
+    grid-template-columns: 1fr; /* 1 column on extra small screens */
+  }
+
+  .categoria-card {
+    background-color: #f9f9f9;
+    color: #333;
+    width: 200px; /* Ancho fijo */
+    height: 220px; /* Altura fija para uniformidad */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+}

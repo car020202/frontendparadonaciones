@@ -47,9 +47,7 @@ const NavigationBar = ({ onLogout }) => {
           <Nav className="ms-auto navbar-links">
             <Nav.Link as={Link} to="/">Inicio</Nav.Link>
             <NavDropdown title="Donar" id="donar-dropdown" className="donar-dropdown">
-              <NavDropdown.Item as={Link} to="/categorias/educacion">Educación</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/categorias/salud">Salud</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/categorias/medioambiente">Medio Ambiente</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/categorias">Categorias</NavDropdown.Item>
             </NavDropdown>
             <Nav.Link as={Link} to="/vercausas">Ver Causas</Nav.Link>
             <Nav.Link as={Link} to="/acercade">Sobre Nosotros</Nav.Link>
