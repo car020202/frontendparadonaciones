@@ -10,7 +10,8 @@ const DonarPage = () => {
     serviceDetails: "",
     utensilsDescription: "",
     utensilImages: [],
-    clothingDescription: ""
+    clothingDescription: "",
+    clothingImages: [] // Añadido: Para almacenar las imágenes de ropa
   }]);
 
   const handleAddDonationEntry = () => {
@@ -20,7 +21,8 @@ const DonarPage = () => {
       serviceDetails: "",
       utensilsDescription: "",
       utensilImages: [],
-      clothingDescription: ""
+      clothingDescription: "",
+      clothingImages: [] // Añadido para cada nueva entrada
     }]);
   };
 
@@ -37,10 +39,10 @@ const DonarPage = () => {
     setDonationEntries(updatedEntries);
   };
 
-  const handleImageUpload = (index, event) => {
+  const handleImageUpload = (index, event, field) => {
     const files = Array.from(event.target.files);
     const updatedEntries = [...donationEntries];
-    updatedEntries[index].utensilImages = files;
+    updatedEntries[index][field] = files;
     setDonationEntries(updatedEntries);
   };
 
@@ -117,6 +119,22 @@ const DonarPage = () => {
                     style={{ padding: "10px", width: "100%" }}
                     placeholder="Describe la ropa que deseas donar"
                   />
+                  <h3 style={{ marginTop: "20px" }}>Subir fotos de la ropa:</h3>
+                  <input
+                    type="file"
+                    multiple
+                    onChange={(e) => handleImageUpload(index, e, "clothingImages")}
+                  />
+                  <div className="clothing-preview" style={{ marginTop: "20px" }}>
+                    {entry.clothingImages.map((image, imgIndex) => (
+                      <img
+                        key={imgIndex}
+                        src={URL.createObjectURL(image)}
+                        alt={`Clothing ${imgIndex + 1}`}
+                        style={{ width: "100px", height: "100px", objectFit: "cover", marginRight: "10px" }}
+                      />
+                    ))}
+                  </div>
                 </div>
               )}
 
@@ -130,7 +148,11 @@ const DonarPage = () => {
                     placeholder="Describe los utensilios que deseas donar"
                   />
                   <h3 style={{ marginTop: "20px" }}>Subir fotos de los utensilios:</h3>
-                  <input type="file" multiple onChange={(e) => handleImageUpload(index, e)} />
+                  <input
+                    type="file"
+                    multiple
+                    onChange={(e) => handleImageUpload(index, e, "utensilImages")}
+                  />
                   <div className="utensil-preview" style={{ marginTop: "20px" }}>
                     {entry.utensilImages.map((image, imgIndex) => (
                       <img
