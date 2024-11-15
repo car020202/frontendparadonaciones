@@ -111,7 +111,7 @@ const CreateCausa = () => {
 
   return (
     <>
-      <Navbar />
+      
       <div
         className="create-causa-container"
         style={{

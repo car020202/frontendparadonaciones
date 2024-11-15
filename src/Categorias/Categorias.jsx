@@ -29,7 +29,7 @@ const categorias = [
 function Categorias() {
   return (
     <>
-      <Navbar />
+      
       <div className="categorias-container">
         <h1>Listado de Categorias</h1>
         <div className="categorias-grid">

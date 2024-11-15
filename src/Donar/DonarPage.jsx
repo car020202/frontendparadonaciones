@@ -64,7 +64,7 @@ const DonarPage = () => {
 
   return (
     <>
-      <Navbar />
+      
       <div className="donar-page-container" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: "cover", backgroundPosition: "center", minHeight: "800px", display: "flex", alignItems: "center", justifyContent: "center", padding: "50px" }}>
         <div className="donar-page" style={{ width: "100%", maxWidth: "800px", backgroundColor: "white", padding: "50px", borderRadius: "10px", boxShadow: "0 0 20px rgba(0,0,0,0.2)" }}>
           <h1>Donar a una Causa</h1>

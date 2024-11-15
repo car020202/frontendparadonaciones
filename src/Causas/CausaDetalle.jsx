@@ -37,7 +37,7 @@ const CausaDetalle = () => {
 
   return (
     <>
-      <Navbar />
+      
       <div style={{ maxWidth: '1500px', margin: '50px auto', padding: '20px' }}>
         <button
           className="back-button"

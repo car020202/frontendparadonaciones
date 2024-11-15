@@ -51,7 +51,7 @@ const Login = ({ setIsLoggedIn, setUserRole }) => {
 
   return (
     <>
-      <Navbar />
+      
       <div className="login">
         <div className="login-container">
           <div className="logo-container">

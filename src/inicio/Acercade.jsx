@@ -8,7 +8,7 @@ import missionImage from '../assets/Mision.webp'; // Asegúrate de colocar la im
 const Acercade = () => {
   return (
     <>
-      <Navbar />
+      
       <section className="about-us">
         <div className="about-us-content">
           <div className="about-us-text">

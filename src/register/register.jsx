@@ -52,7 +52,7 @@ const Register = () => {
 
   return (
     <>
-    <Navbar/>
+    
     <div className="register">
       <div className="register-container">
         <div className="logo-container">

@@ -37,7 +37,7 @@ const Causasfiltro = () => {
   const nombreCategoria = location.state?.nombreCategoria || 'Todas las Causas';
   return (
     <>
-      <Navbar />
+      
       <div className="button-container" style={{ display: 'flex', justifyContent: 'flex-end', padding: '20px 50px' }}>
         <button className="create-causa-button" onClick={() => window.location.href = '/crearcausa'} style={{
           backgroundColor: '#007B8A',
