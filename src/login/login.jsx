@@ -5,7 +5,7 @@ import './logincss/login.css';
 import logo from '../assets/logo.webp';
 import Navbar from '../navbar/navbar';
 
-const Login = ({ setIsLoggedIn }) => {
+const Login = ({ setIsLoggedIn, setUserRole }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -22,13 +22,16 @@ const Login = ({ setIsLoggedIn }) => {
       const cleanToken = token.replace("Bearer ", "");
       localStorage.setItem('token', cleanToken);
       localStorage.setItem('role', user.roles);
-      setIsLoggedIn(true);
 
-      // Mostrar mensaje de éxito en lugar de alert
+      // Actualizar estado global
+      setIsLoggedIn(true);
+      setUserRole(user.roles);
+
+      // Mostrar mensaje de éxito
       setSuccessMessage('Inicio de sesión exitoso');
       setError('');
       
-      // Redirigir después de un breve retardo
+      // Redirigir según el rol del usuario después de un breve retardo
       setTimeout(() => {
         if (user.roles === 1) {
           navigate('/dashboard');

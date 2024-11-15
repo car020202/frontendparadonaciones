@@ -17,7 +17,8 @@ import MisCausas from './Usuario/MisCausas';
 import ViewCausa from './Usuario/ViewCausa';
 import DonarPage from './Donar/DonarPage';
 
-import ProtectedRoute from './ProtectedRoute'; // Asegúrate de que la ruta sea correcta
+import ProtectedRoute from './ProtectedRoute';
+import NavigationBar from './navbar/navbar';
 import GestionarCausas from './admin/stadisticas/GestionarCausas';
 import Acercade from './inicio/Acercade';
 import Categorias from './Categorias/Categorias';
@@ -35,8 +36,22 @@ function App() {
     setUserRole(role ? parseInt(role) : null);
   }, []);
 
+  // Función para cerrar sesión
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    localStorage.removeItem('username');
+    setIsLoggedIn(false);
+    setUserRole(null);
+  };
+
   return (
     <Router>
+      {/* Renderizar NavigationBar solo si el usuario no es admin (rol 1) */}
+      {!(isLoggedIn && userRole === 1) && (
+        <NavigationBar isLoggedIn={isLoggedIn} userRole={userRole} onLogout={handleLogout} />
+      )}
+      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
@@ -45,7 +60,7 @@ function App() {
             isLoggedIn ? (
               <Navigate to={userRole === 1 ? '/dashboard' : '/'} replace />
             ) : (
-              <Login setIsLoggedIn={setIsLoggedIn} />
+              <Login setIsLoggedIn={setIsLoggedIn} setUserRole={setUserRole} />
             )
           }
         />
@@ -93,7 +108,7 @@ function App() {
         />
         <Route path="/crearcausa" element={<CreateCausa />} />
         <Route path="/vercausas" element={<VerCausas />} />
-        <Route path="/detallecausa/:id" element={<CausaDetalle />} /> {/* Ruta con parámetro id */}
+        <Route path="/detallecausa/:id" element={<CausaDetalle />} />
         <Route path="/categorias" element={<Categorias />} />
         <Route path="/vercausacategoria" element={<Causasfiltro />} />
         <Route path="/acercade" element={<Acercade />} />

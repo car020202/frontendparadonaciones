@@ -1,33 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaUserCircle } from 'react-icons/fa'; // Icono de usuario
+import { FaUserCircle } from 'react-icons/fa';
 import logo from '../assets/logo.webp';
 import './navbar.css';
 
-const NavigationBar = ({ onLogout }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+const NavigationBar = ({ isLoggedIn, userRole, onLogout }) => {
   const [username, setUsername] = useState('');
   const navigate = useNavigate();
 
-  // Verificar el estado de autenticación al cargar el componente
+  // Verificar el nombre de usuario al cargar el componente
   useEffect(() => {
-    const token = localStorage.getItem('token');
     const storedUsername = localStorage.getItem('username');
-    setIsLoggedIn(!!token); // Actualiza el estado basado en la existencia del token
-    if (token && storedUsername) {
-      setUsername(storedUsername); // Actualiza el nombre de usuario si existe
+    if (storedUsername) {
+      setUsername(storedUsername);
     }
-  }, []);
+  }, [isLoggedIn]);
 
   const handleLogoutClick = () => {
     localStorage.removeItem('token'); // Elimina el token del almacenamiento local
     localStorage.removeItem('username'); // Elimina el nombre de usuario del almacenamiento local
-    setIsLoggedIn(false);
+    localStorage.removeItem('role'); // Elimina el rol de usuario del almacenamiento local
     onLogout();
     
-    // Recargar la página automáticamente para limpiar el estado y redirigir al login
-    window.location.reload();
+    // Redirigir al login después de cerrar sesión
+    navigate('/login');
   };
 
   return (
@@ -53,6 +50,9 @@ const NavigationBar = ({ onLogout }) => {
             <Nav.Link as={Link} to="/acercade">Sobre Nosotros</Nav.Link>
             {isLoggedIn ? (
               <>
+                {userRole === 1 && (
+                  <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link>
+                )}
                 <Nav.Link as={Link} onClick={handleLogoutClick} className="logout-link">Cerrar sesión</Nav.Link>
                 <Nav.Link as={Link} to="/perfil" className="user-info-link">
                   <FaUserCircle size={24} className="user-icon" /> {username}
