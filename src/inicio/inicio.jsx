@@ -1,61 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./inicio.css";
 import Navbar from "../navbar/navbar";
 import Footer from "../Footer/Footer";
 import { Carousel } from "react-bootstrap";
 
-const causasData = [
-  {
-    id: 1,
-    title: 'Ayuda por desastres naturales',
-    description: 'Las recientes inundaciones han dejado cientos de personas sin hogar. Tu donación puede proporcionar refugio y comida.',
-    donations: '2.7 mil. donaciones',
-    progress: 50,
-    image: 'https://via.placeholder.com/150',
-  },
-  {
-    id: 2,
-    title: 'Educación para niños sin recursos',
-    description: 'Ayuda a financiar la educación de niños en comunidades rurales que carecen de los recursos básicos para estudiar.',
-    donations: '1.5 mil. donaciones',
-    progress: 40,
-    image: 'https://via.placeholder.com/150',
-  },
-  {
-    id: 3,
-    title: 'Apoyo a la salud mental',
-    description: 'Contribuye a programas de apoyo para la salud mental en comunidades vulnerables. Tu ayuda es crucial para salvar vidas.',
-    donations: '3 mil. donaciones',
-    progress: 60,
-    image: 'https://via.placeholder.com/150',
-  },
-  {
-    id: 4,
-    title: 'Reforestación y medio ambiente',
-    description: 'Apoya los esfuerzos de reforestación para combatir el cambio climático y preservar nuestros ecosistemas.',
-    donations: '2 mil. donaciones',
-    progress: 70,
-    image: 'https://via.placeholder.com/150',
-  },
-  {
-    id: 5,
-    title: 'Alimentos para familias en pobreza',
-    description: 'Miles de familias en situación de pobreza dependen de donaciones para alimentarse. Ayuda a cambiar sus vidas con una donación.',
-    donations: '1.8 mil. donaciones',
-    progress: 80,
-    image: 'https://via.placeholder.com/150',
-  },
-  {
-    id: 6,
-    title: 'Protección de animales en peligro',
-    description: 'Los animales en peligro de extinción necesitan de tu ayuda para ser protegidos. Cada donación cuenta.',
-    donations: '1 mil. donaciones',
-    progress: 30,
-    image: 'https://via.placeholder.com/150',
-  },
-];
-
 const Home = () => {
+  const [causas, setCausas] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    const fetchCausas = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/api/causas/ultimas');
+        setCausas(response.data);
+      } catch (error) {
+        console.error('Error al obtener las causas:', error);
+        setErrorMessage('No se pudieron cargar las causas');
+      }
+    };
+
+    fetchCausas();
+  }, []);
+
   const chunkArray = (array, size) => {
     const result = [];
     for (let i = 0; i < array.length; i += size) {
@@ -64,7 +31,7 @@ const Home = () => {
     return result;
   };
 
-  const causasChunks = chunkArray(causasData, 3);
+  const causasChunks = chunkArray(causas, 3);
 
   return (
     <>
@@ -75,7 +42,12 @@ const Home = () => {
           <div className="banner-content">
             <h1>Tu lugar para ayudar</h1>
             <p>La plataforma líder en crowdfunding para causas importantes</p>
-            <button className="cta-button" onClick={() => window.location.href = '/crearcausa'}>Iniciar una recaudación</button>
+            <button
+              className="cta-button"
+              onClick={() => window.location.href = '/crearcausa'}
+            >
+              Iniciar una recaudación
+            </button>
           </div>
         </section>
 
@@ -84,6 +56,7 @@ const Home = () => {
           <div className="cqnta">
             <h2>Causas que necesitan tu ayuda</h2>
           </div>
+          {errorMessage && <p className="text-danger">{errorMessage}</p>}
           <Carousel controls={true} indicators={false} interval={5000} pause={false}>
             {causasChunks.map((chunk, index) => (
               <Carousel.Item key={index}>
@@ -103,25 +76,27 @@ const Home = () => {
                       marginLeft: '50px',
                       marginBottom: '50px'
                     }}>
-                      <img src={causa.image} alt={`Causa ${causa.id}`} style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '10px 10px 0 0' }} />
+                      <img
+                        src={`http://localhost:3000${causa.portada}`}
+                        alt={`Causa ${causa.id}`}
+                        style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '10px 10px 0 0' }}
+                      />
                       <div style={{ position: 'absolute', top: '10px', left: '10px', backgroundColor: 'rgba(0, 0, 0, 0.6)', color: 'white', padding: '5px 10px', borderRadius: '5px', fontSize: '14px' }}>
-                        {causa.donations}
+                        {causa.meta} recaudado
                       </div>
-                      <h3 style={{ marginTop: '30px' }}>{causa.title}</h3>
-                      <p>{causa.description}</p>
+                      <h3 style={{ marginTop: '30px' }}>{causa.nombreCausa}</h3>
+                      <p>{causa.descripcion}</p>
                       <div style={{ marginTop: 'auto' }}>
                         <div style={{ height: '8px', width: '100%', backgroundColor: '#e0e0e0', borderRadius: '5px', margin: '10px 0' }}>
-                          <div style={{ width: `${causa.progress}%`, height: '100%', backgroundColor: '#00c853', borderRadius: '5px' }}></div>
+                          <div style={{ width: `${causa.progreso || 50}%`, height: '100%', backgroundColor: '#00c853', borderRadius: '5px' }}></div>
                         </div>
                         <button
                           className="donate-button"
-                          onClick={() => window.location.href = `/paginadonar`}
+                          onClick={() => window.location.href = `/paginadonar/${causa.id}`}
                         >
                           Donar ahora
                         </button>
-
                       </div>
-
                     </div>
                   ))}
                 </div>
@@ -130,7 +105,7 @@ const Home = () => {
           </Carousel>
         </section>
 
-        {/* Nueva Sección Informativa */}
+        {/* Sección Informativa */}
         <section className="info-section">
           <div className="info-content">
             <h2>Recaudar fondos en nuestra plataforma es un proceso fácil, eficaz y confiable.</h2>
@@ -144,10 +119,9 @@ const Home = () => {
           <a href="/crearcausa" className="btn-crearcausa" style={{ display: 'block', margin: '20px auto', textAlign: 'center' }}>
             Crear Causa
           </a>
-
         </section>
 
-        {/* Nueva Sección con Video */}
+        {/* Sección con Video */}
         <section className="video-section" style={{ backgroundColor: 'white', padding: '50px 0' }}>
           <div className="video-content" style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
             <h2>Conoce más sobre nuestro trabajo</h2>
@@ -164,7 +138,6 @@ const Home = () => {
             </div>
           </div>
         </section>
-
       </div>
       <Footer />
     </>
