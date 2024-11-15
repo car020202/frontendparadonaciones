@@ -66,7 +66,7 @@ const ViewCausas = () => {
                 <img src={`http://localhost:3000${causa.portada}`} alt={`Causa ${causa.nombreCausa}`} style={{ width: '400px', height: '250px', objectFit: 'cover', borderRadius: '10px', marginBottom: '10px' }} />
                 <div style={{ padding: '10px' }}>
                   <div style={{ position: 'absolute', top: '10px', left: '10px', backgroundColor: 'rgba(0, 0, 0, 0.6)', color: 'white', padding: '5px 10px', borderRadius: '5px', fontSize: '14px' }}>
-                    {causa.recaudado || 0} recaudado
+                  ${causa.recaudado || 0} recaudado de ${causa.meta || 0} recaudado
                   </div>
                   <h3 style={{ marginTop: '10px', fontSize: '20px' }}>{causa.nombreCausa}</h3>
                   <p style={{ fontSize: '18px', color: '#4a4a4a' }}>{causa.descripcion}</p>

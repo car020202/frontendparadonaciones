@@ -48,7 +48,7 @@ const ViewCausas = () => {
         minHeight: '700px',
       }}>
         <div className="causas-list-container" style={{
-          backgroundColor: '#007B8A',
+          backgroundColor: '#f3f3f3',
           borderRadius: '10px',
           padding: '20px',
           maxWidth: '1600px',
@@ -56,7 +56,7 @@ const ViewCausas = () => {
           margin: '0 auto',
           boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)'
         }}>
-          <h2 style={{ textAlign: 'center', marginBottom: '20px', color: 'white' }}>Mis Causas</h2>
+          <h2 style={{ textAlign: 'center', marginBottom: '20px', color: '#007c8c' }}>Mis Causas</h2>
           {errorMessage && <p style={{ color: 'red', textAlign: 'center' }}>{errorMessage}</p>}
           <div className="causas-cards" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'center' }}>
             {causas.map((causa) => (
@@ -73,13 +73,34 @@ const ViewCausas = () => {
                 <img src={`http://localhost:3000${causa.portada}`} alt={`Causa ${causa.id}`} style={{ width: '400px', height: '250px', objectFit: 'cover', borderRadius: '10px', marginBottom: '10px' }} />
                 <div style={{ padding: '10px' }}>
                   <div style={{ position: 'absolute', top: '10px', left: '10px', backgroundColor: 'rgba(0, 0, 0, 0.6)', color: 'white', padding: '5px 10px', borderRadius: '5px', fontSize: '14px' }}>
-                    {causa.status === 'finalizada' ? 'Finalizada' : 'En curso'}
+                    ${causa.recaudado || 0} recaudado de ${causa.meta || 0} recaudado
                   </div>
                   <h3 style={{ marginTop: '10px', fontSize: '20px' }}>{causa.nombreCausa}</h3>
                   <p style={{ fontSize: '18px', color: '#4a4a4a' }}>{causa.descripcion}</p>
-                  
-                  <div style={{ height: '8px', width: '100%', backgroundColor: '#e0e0e0', borderRadius: '5px', margin: '10px 0' }}>
-                    <div style={{ width: `${(causa.recaudado / causa.meta) * 100}%`, height: '100%', backgroundColor: '#00c853', borderRadius: '5px' }}></div>
+                  <div style={{ position: 'relative', marginBottom: '10px' }}>
+                    <span style={{
+                      position: 'absolute',
+                      top: '-20px',
+                      left: '0',
+                      color: '#555',
+                      fontSize: '12px',
+                      fontWeight: 'bold'
+                    }}>
+                      ${causa.recaudado || 0}
+                    </span>
+                    <span style={{
+                      position: 'absolute',
+                      top: '-20px',
+                      right: '0',
+                      color: '#555',
+                      fontSize: '12px',
+                      fontWeight: 'bold'
+                    }}>
+                      ${causa.meta || 0}
+                    </span>
+                    <div style={{ height: '8px', width: '100%', backgroundColor: '#e0e0e0', borderRadius: '5px', margin: '10px 0' }}>
+                      <div style={{ width: `${(causa.recaudado / causa.meta) * 100 || 0}%`, height: '100%', backgroundColor: '#00c853', borderRadius: '5px' }}></div>
+                    </div>
                   </div>
                   <button className="donate-button" onClick={() => window.location.href = `/viewcausa`} style={{
                     backgroundColor: '#007B8A', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '5px', cursor: 'pointer'

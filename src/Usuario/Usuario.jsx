@@ -106,12 +106,6 @@ const Usuario = () => {
                 </Form>
               </Card.Body>
             </Card>
-            <Button variant="primary" onClick={handleSaveChanges} className="save-button">
-              Guardar Cambios
-            </Button>
-            <Button variant="danger" onClick={handleDeleteAccount} className="delete-button">
-              Eliminar Cuenta
-            </Button>
             <Button variant="primary" onClick={handleViewMisCausas} className="view-causas-button">
               Ver Mis Causas
             </Button>
