@@ -7,21 +7,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: rgb(255, 255, 255);
+  color: #fff;
   text-align: center;
 }
 
 .banner-content h1 {
-  font-size: 4rem;
+  font-size: 3rem;
   margin-bottom: 10px;
-  font-family: 'Arial', sans-serif; /* Agregamos una fuente legible */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); /* Sombra para destacar el texto */
+  font-family: 'Arial', sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .banner-content p {
   font-size: 1.5rem;
   margin-bottom: 20px;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4); /* Sombra ligera en el párrafo */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 .cta-button {
@@ -32,43 +32,42 @@
   border-radius: 8px;
   font-size: 1.2rem;
   font-family: 'Arial', sans-serif;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra para el botón */
-  transition: background-color 0.3s ease, transform 0.3s ease; /* Transición suave */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease, transform 0.3s ease;
   cursor: pointer;
 }
 
 .cta-button:hover {
   background-color: #005f6b;
-  transform: scale(1.05); /* Efecto de agrandamiento al pasar el cursor */
+  transform: scale(1.05);
 }
-.cqnta{
+
+.cqnta {
   margin-bottom: 30px;
 }
 
 /* Carrusel */
 .carousel-section {
-  height: 600px;
   margin-top: 50px;
-  padding: 20px;
+  padding: 20px 10vw; /* Margen lateral para centrar el contenido */
   text-align: center;
-  position: relative;
-  padding-left: 40px;
-  padding-right: 40px;
-  background-color: #ffffff; /* Fondo claro para resaltar el carrusel */
+  background-color: #ffffff;
 }
 
 .carousel-image {
   width: 100%;
-  height: 180px; /* Ajustamos la altura de las imágenes */
+  height: 180px;
   object-fit: cover;
-  border-radius: 10px; /* Bordes redondeados para las imágenes */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Contenedor para mostrar 3 cards por slide */
+/* Contenedor de tarjetas en el carrusel */
 .card-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
   margin-top: 30px;
 }
 
@@ -77,20 +76,20 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   padding: 20px;
-  width: 30%; /* Ajusta el ancho para que quepan 3 tarjetas en una fila */
+  width: 300px; /* Ancho fijo para asegurar alineación */
+  max-width: 100%;
   text-align: center;
-  margin: 0 15px; /* Añade margen horizontal para separar las tarjetas entre sí */
-  transition: transform 0.8s ease;
+  transition: transform 0.3s ease;
 }
 
 .carousel-card:hover {
-  transform: scale(1.05); /* Efecto de zoom al pasar el mouse sobre las tarjetas */
+  transform: scale(1.05);
 }
 
 .carousel-card h3 {
   font-size: 1.7rem;
   margin-bottom: 10px;
-  color: #007b8a; /* Color acorde al tema de la plataforma */
+  color: #007b8a;
   font-family: 'Arial', sans-serif;
 }
 
@@ -101,36 +100,28 @@
   margin-bottom: 15px;
 }
 
-
-
-
-/* Estilo para el botón Donate */
+/* Botón Donate */
 .donate-button {
   padding: 12px 24px;
-  background-color: #FF6B6B; /* Color rojo claro que destaca */
+  background-color: #FF6B6B;
   color: white;
   border: none;
-  border-radius: 30px; /* Bordes redondeados */
+  border-radius: 30px;
   font-size: 1.2rem;
   font-weight: bold;
   font-family: 'Arial', sans-serif;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 8px rgba(255, 107, 107, 0.4); /* Sombra suave */
+  box-shadow: 0 4px 8px rgba(255, 107, 107, 0.4);
 }
 
 .donate-button:hover {
-  background-color: #FF3B3B; /* Un tono más oscuro en hover */
-  transform: translateY(-2px); /* Efecto de levitación al hacer hover */
-  box-shadow: 0 6px 12px rgba(255, 107, 107, 0.6); /* Aumenta la sombra en hover */
+  background-color: #FF3B3B;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(255, 107, 107, 0.6);
 }
 
-.donate-button:active {
-  transform: translateY(0); /* Vuelve a su lugar al hacer clic */
-  box-shadow: 0 4px 8px rgba(255, 107, 107, 0.4); /* Sombra inicial */
-}
-
-/* Estilos de la Sección Informativa */
+/* Sección Informativa */
 .info-section {
   margin-top: 75px;
   background-color: #007b8a;
@@ -158,55 +149,77 @@
   margin-bottom: 20px;
 }
 
-.info-content a {
-  color: #007b8a;
-  text-decoration: underline;
-}
-
-.info-content a:hover {
-  color: #005f6b;
-}
-
-.btn-crearcausa{
+.btn-crearcausa {
   width: 200px;
   padding: 12px 24px;
-  background-color: #FF6B6B; /* Color rojo claro que destaca */
+  background-color: #FF6B6B;
   color: white;
   border: none;
-  border-radius: 30px; /* Bordes redondeados */
+  border-radius: 30px;
   font-size: 1.2rem;
   font-weight: bold;
   font-family: 'Arial', sans-serif;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 8px rgba(255, 107, 107, 0.4); /* Sombra suave */
+  box-shadow: 0 4px 8px rgba(255, 107, 107, 0.4);
+  display: block;
+  margin: 20px auto;
+  text-align: center;
 }
 
-
-/* Responsive para el carrusel */
+/* Responsive Ajustes */
 @media (max-width: 768px) {
+  .banner-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .banner-content p {
+    font-size: 1.2rem;
+  }
+
+  .carousel-section {
+    padding: 20px 5vw; /* Reducir el padding lateral en pantallas pequeñas */
+  }
+
   .card-container {
-    display: flex;
+    margin-right: 90px;
     flex-direction: column;
     align-items: center;
   }
 
   .carousel-card {
-    width: 90%;
-    margin: 15px 0;
-    height: 550px; /* Ajusta la altura de cada card automáticamente */
+    width: 90%; /* Ajusta el ancho de cada card al 90% en pantallas pequeñas */
+    margin-bottom: 20px;
   }
 
-  /* Asegura que todas las cards tengan el mismo alto */
-  .carousel-card {
-    align-items: stretch;
+  .info-section {
+    padding: 30px 15px;
   }
-  
-  .carousel-section {
-    padding-left: 10px;
-    padding-right: 10px;
+
+  .info-content h2 {
+    font-size: 1.5rem;
   }
-  
+
+  .info-content p {
+    font-size: 1rem;
+  }
 }
 
+@media (max-width: 576px) {
+  .banner-content h1 {
+    font-size: 2rem;
+  }
 
+  .carousel-section {
+    padding: 20px 10px;
+  }
+
+  .carousel-card {
+    width: 100%;
+  }
+
+  .cta-button, .donate-button, .btn-crearcausa {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+}

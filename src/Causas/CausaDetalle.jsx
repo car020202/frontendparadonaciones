@@ -69,9 +69,7 @@ const CausaDetalle = () => {
           >
             <h1 style={{ color: '#007c8c', textAlign: 'center', marginBottom: '20px' }}>{causa.nombreCausa}</h1>
 
-            <h3 style={{ fontSize: '18px', color: '#555' }}>
-              Creado por: {causa.usuarioNombre || 'Desconocido'}
-            </h3>
+            
 
 
             <div style={{ marginBottom: '20px', display: 'flex', justifyContent: 'center' }}>
@@ -82,12 +80,20 @@ const CausaDetalle = () => {
               />
             </div>
 
-            <p style={{ fontSize: '18px', color: '#333', marginBottom: '20px' }}>{causa.descripcion}</p>
+            <h3 style={{ fontSize: '20px', color: '#007c8c', marginBottom: '10px' }}>
+              Causa creada por: 
+            </h3>
+
+            <h3 style={{ fontSize: '20px', color: '#333', marginBottom: '20px' }}>{causa.usuarioNombre || 'Desconocido'}</h3>
+
+            <h3 style={{ fontSize: '20px', color: '#007c8c', marginBottom: '10px' }}>Descripción:</h3>
+
+            <p style={{ fontSize: '20px', color: '#333', marginBottom: '20px' }}>{causa.descripcion}</p>
 
             <h3 style={{ fontSize: '20px', color: '#007c8c', marginBottom: '10px' }}>Especificaciones para donaciones:</h3>
             <ul style={{ listStyleType: 'disc', paddingLeft: '20px', color: '#555', marginBottom: '20px' }}>
               {causa.tipoDonacion.split(',').map((tipo, index) => (
-                <li key={index} style={{ fontSize: '18px' }}>{tipo.trim()}</li>
+                <li key={index} style={{ fontSize: '20px' }}>{tipo.trim()}</li>
               ))}
             </ul>
           </div>
