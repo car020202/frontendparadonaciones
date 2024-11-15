@@ -53,7 +53,7 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Carrusel de causas destacadas */}
+         {/* Carrusel de causas destacadas */}
         <section className="carousel-section">
           <div className="cqnta">
             <h2>Causas que necesitan tu ayuda</h2>
@@ -88,9 +88,31 @@ const Home = () => {
                       </div>
                       <h3 style={{ marginTop: '30px' }}>{causa.nombreCausa}</h3>
                       <p>{causa.descripcion}</p>
-                      <div style={{ marginTop: 'auto' }}>
-                        <div style={{ height: '8px', width: '100%', backgroundColor: '#e0e0e0', borderRadius: '5px', margin: '10px 0' }}>
+                      <div style={{ marginTop: 'auto', position: 'relative' }}>
+                        {/* Span para el monto recaudado, ahora encima de la barra */}
+                        <span style={{
+                          position: 'absolute',
+                          top: '-9px',
+                          left: '0',
+                          color: '#555',
+                          fontSize: '12px',
+                          fontWeight: 'bold'
+                        }}>
+                          ${causa.recaudado || 0}
+                        </span>
+                        <div style={{ height: '8px', width: '100%', backgroundColor: '#e0e0e0', borderRadius: '5px', margin: '10px 0', position: 'relative' }}>
                           <div style={{ width: `${causa.progreso || 50}%`, height: '100%', backgroundColor: '#00c853', borderRadius: '5px' }}></div>
+                          {/* Span para el monto total de la meta al final de la barra */}
+                          <span style={{
+                            position: 'absolute',
+                            right: '5px',
+                            top: '-18px',
+                            color: '#555',
+                            fontSize: '12px',
+                            fontWeight: 'bold'
+                          }}>
+                            ${causa.meta || 0}
+                          </span>
                         </div>
                         <button
                           className="donate-button"

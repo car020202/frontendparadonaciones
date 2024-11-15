@@ -3,7 +3,6 @@ import Navbar from '../navbar/navbar';
 import Footer from '../Footer/Footer';
 import { useLocation } from 'react-router-dom';
 import backgroundImage from '../assets/background.jpg';
-import styled from "styled-components";
 
 const causasData = [
   {
@@ -11,30 +10,39 @@ const causasData = [
     title: 'Causa A',
     description: 'Descripción de la causa A',
     images: ['https://via.placeholder.com/150'],
+    donations: '$500',
+    goal: '$1000'
   },
   {
     id: 2,
     title: 'Causa B',
     description: 'Descripción de la causa B',
     images: ['https://via.placeholder.com/150'],
+    donations: '$300',
+    goal: '$800'
   },
   {
     id: 3,
     title: 'Causa C',
     description: 'Descripción de la causa C',
     images: ['https://via.placeholder.com/150'],
+    donations: '$450',
+    goal: '$900'
   },
   {
     id: 4,
     title: 'Causa D',
     description: 'Descripción de la causa D',
     images: ['https://via.placeholder.com/150'],
+    donations: '$200',
+    goal: '$600'
   },
 ];
 
 const Causasfiltro = () => {
   const location = useLocation();
   const nombreCategoria = location.state?.nombreCategoria || 'Todas las Causas';
+
   return (
     <>
       
@@ -48,7 +56,7 @@ const Causasfiltro = () => {
       </div>
 
       <div className="view-causas-container" style={{
-
+        
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         padding: '10px 0',
@@ -68,7 +76,7 @@ const Causasfiltro = () => {
           </h1>
           <div className="causas-cards" style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',  // Configura 3 columnas
+            gridTemplateColumns: 'repeat(3, 1fr)',
             gap: '20px',
             justifyContent: 'center'
           }}>
@@ -86,14 +94,39 @@ const Causasfiltro = () => {
                 <img src={causa.images[0]} alt={`Causa ${causa.id}`} style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '10px', marginBottom: '10px' }} />
                 <div style={{ padding: '10px' }}>
                   <div style={{ position: 'absolute', top: '10px', left: '10px', backgroundColor: 'rgba(0, 0, 0, 0.6)', color: 'white', padding: '5px 10px', borderRadius: '5px', fontSize: '14px' }}>
-                    {causa.donations}
+                    {causa.donations} recaudado
                   </div>
                   <h3 style={{ marginTop: '10px', fontSize: '20px' }}>{causa.title}</h3>
                   <p style={{ fontSize: '18px', color: '#4a4a4a' }}>{causa.description}</p>
 
-                  <div style={{ height: '8px', width: '100%', backgroundColor: '#e0e0e0', borderRadius: '5px', margin: '10px 0' }}>
-                    <div style={{ width: '50%', height: '100%', backgroundColor: '#00c853', borderRadius: '5px' }}></div>
+                  <div style={{ position: 'relative', marginBottom: '10px' }}>
+                    <span style={{
+                      position: 'absolute',
+                      top: '-20px',
+                      left: '0',
+                      color: '#555',
+                      fontSize: '12px',
+                      fontWeight: 'bold'
+                    }}>
+                      {/*donaciones  */}
+                      {causa.donations}
+                    </span>
+                    <span style={{
+                      position: 'absolute',
+                      top: '-20px',
+                      right: '0',
+                      color: '#555',
+                      fontSize: '12px',
+                      fontWeight: 'bold'
+                    }}>
+                      {/*aqui va la meta  */}
+                      {causa.goal}
+                    </span>
+                    <div style={{ height: '8px', width: '100%', backgroundColor: '#e0e0e0', borderRadius: '5px' }}>
+                      <div style={{ width: '50%', height: '100%', backgroundColor: '#00c853', borderRadius: '5px' }}></div>
+                    </div>
                   </div>
+
                   <button
                     className="donate-button"
                     onClick={() => window.location.href = `/detallecausa`}
