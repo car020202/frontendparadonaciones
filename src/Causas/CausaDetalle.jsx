@@ -76,7 +76,7 @@ const CausaDetalle = () => {
               <img
                 src={`http://localhost:3000${causa.portada}`}
                 alt={`Imagen de ${causa.nombreCausa}`}
-                style={{ width: '400px', height: '400px', borderRadius: '10px', objectFit: 'cover' }}
+                style={{ width: '700px', height: '400px', borderRadius: '10px', objectFit: 'cover' }}
               />
             </div>
 
