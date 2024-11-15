@@ -37,7 +37,6 @@ const Home = () => {
 
   return (
     <>
-   
       <div>
         {/* Sección del Banner */}
         <section className="banner-section">
@@ -53,7 +52,7 @@ const Home = () => {
           </div>
         </section>
 
-         {/* Carrusel de causas destacadas */}
+        {/* Carrusel de causas destacadas */}
         <section className="carousel-section">
           <div className="cqnta">
             <h2>Causas que necesitan tu ayuda</h2>
@@ -84,7 +83,7 @@ const Home = () => {
                         style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '10px 10px 0 0' }}
                       />
                       <div style={{ position: 'absolute', top: '10px', left: '10px', backgroundColor: 'rgba(0, 0, 0, 0.6)', color: 'white', padding: '5px 10px', borderRadius: '5px', fontSize: '14px' }}>
-                        {causa.meta} recaudado
+                        ${causa.recaudado || 0} recaudado de ${causa.meta || 0}
                       </div>
                       <h3 style={{ marginTop: '30px' }}>{causa.nombreCausa}</h3>
                       <p>{causa.descripcion}</p>
@@ -101,7 +100,7 @@ const Home = () => {
                           ${causa.recaudado || 0}
                         </span>
                         <div style={{ height: '8px', width: '100%', backgroundColor: '#e0e0e0', borderRadius: '5px', margin: '10px 0', position: 'relative' }}>
-                          <div style={{ width: `${causa.progreso || 50}%`, height: '100%', backgroundColor: '#00c853', borderRadius: '5px' }}></div>
+                          <div style={{ width: `${(causa.recaudado / causa.meta) * 100 || 0}%`, height: '100%', backgroundColor: '#00c853', borderRadius: '5px' }}></div>
                           {/* Span para el monto total de la meta al final de la barra */}
                           <span style={{
                             position: 'absolute',

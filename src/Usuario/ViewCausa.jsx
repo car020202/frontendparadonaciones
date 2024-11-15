@@ -24,7 +24,7 @@ const ViewCausa = () => {
 
   return (
     <>
-      <Navbar />
+      
       <div className="view-causa-background">
         <Container className="view-causa-container">
           <Card className="view-causa-card">

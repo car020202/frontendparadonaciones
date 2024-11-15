@@ -53,7 +53,7 @@ const Usuario = () => {
 
   return (
     <>
-      <Navbar />
+      
       <div className="user-profile-background">
         <Container className="user-profile-container d-flex">
           <div style={{ flex: 1 }}>
