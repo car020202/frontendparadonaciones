@@ -24,9 +24,8 @@ const InformeDonacion = () => {
         { nombre: 'Carlos Gómez', monto: 2000 },
       ],
       imagenes: [
-        'https://via.placeholder.com/400x300?text=Imagen+1',
-        'https://via.placeholder.com/400x300?text=Imagen+2',
-        'https://via.placeholder.com/400x300?text=Imagen+3',
+        'https://via.placeholder.com/400x300?text=Imagen+1'
+        
       ],
     };
 
@@ -41,16 +40,16 @@ const InformeDonacion = () => {
 
   return (
     <>
-      <Navbar />
+      
       <div className="informe-donaciones">
         {donacion ? (
           <div className="donacion-item">
             <h3 className="donacion-causa">Informe de la Causa</h3>
             <div className="donacion-detalle">
               <p><strong>Total Recaudado:</strong> <span className="donacion-monto">${donacion.monto.toLocaleString()}</span></p>
-              <p><strong>Impacto Generado:</strong> <span className="donacion-impacto">{donacion.impacto}</span></p>
+              
               <Form.Group controlId="formDescription" className="mb-3">
-                <Form.Label><strong>Descripción:</strong></Form.Label>
+                <Form.Label><strong>Agradecimiento:</strong></Form.Label>
                 <Form.Control
                   as="textarea"
                   rows={3}
@@ -71,17 +70,15 @@ const InformeDonacion = () => {
             </ListGroup>
             {imagenes.length > 0 && (
               <>
-                <h4 className="imagenes-titulo">Imágenes Relacionadas</h4>
+                <h4 className="imagenes-titulo">Imagen Relacionada</h4>
                 <Carousel className="imagenes-carousel">
-                  {imagenes.map((imagen, index) => (
-                    <Carousel.Item key={index}>
-                      <img
-                        className="d-block w-100"
-                        src={imagen}
-                        alt={`Imagen ${index + 1}`}
-                      />
-                    </Carousel.Item>
-                  ))}
+                  <Carousel.Item>
+                    <img
+                      className="d-block w-100"
+                      src={imagenes[0]} 
+                      alt="Imagen relacionada"
+                    />
+                  </Carousel.Item>
                 </Carousel>
               </>
             )}
