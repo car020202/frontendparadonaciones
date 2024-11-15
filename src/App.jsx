@@ -24,7 +24,6 @@ import Categorias from './Categorias/Categorias';
 import Causasfiltro from './Categorias/Causasfiltro';
 import CausaDetalle from './Causas/CausaDetalle';
 
-
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState(null);
@@ -35,8 +34,6 @@ function App() {
     setIsLoggedIn(!!token);
     setUserRole(role ? parseInt(role) : null);
   }, []);
-
-
 
   return (
     <Router>
@@ -94,68 +91,16 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route
-          path="/crearcausa"
-          element={
-            /* quite la ruta protegida por que no me dejaba ver el componente */
-
-            <CreateCausa />
-
-          }
-        />
-        <Route
-          path="/vercausas"
-          element={
-            /* esta no debe estar protegida por que es para todo publico */
-
-            <VerCausas />
-
-          }
-        />
-        <Route
-          path="/detallecausa"
-          element={
-            /* esta no debe estar protegida por que es para todo publico */
-
-            <CausaDetalle />
-
-          }
-        />
-        <Route
-          path="/categorias"
-          element={
-            /* esta no debe estar protegida por que es para todo publico */
-
-            <Categorias />
-
-          }
-        />
-        <Route
-          path="/vercausacategoria"
-          element={
-            /* esta no debe estar protegida por que es para todo publico */
-
-            <Causasfiltro />
-
-          }
-        />
-        <Route
-          path="/acercade"
-          element={
-            /* esta no debe estar protegida por que es para todo publico */
-
-            <Acercade />
-
-          }
-        />
-
-
+        <Route path="/crearcausa" element={<CreateCausa />} />
+        <Route path="/vercausas" element={<VerCausas />} />
+        <Route path="/detallecausa/:id" element={<CausaDetalle />} /> {/* Ruta con parámetro id */}
+        <Route path="/categorias" element={<Categorias />} />
+        <Route path="/vercausacategoria" element={<Causasfiltro />} />
+        <Route path="/acercade" element={<Acercade />} />
         <Route
           path="/perfil"
           element={
-            /* esta si la pude proteger no da error */
             <ProtectedRoute isLoggedIn={isLoggedIn}>
-
               <Usuario />
             </ProtectedRoute>
           }
@@ -163,40 +108,14 @@ function App() {
         <Route
           path="/informe"
           element={
-            /* esta si la pude proteger no da error */
             <ProtectedRoute isLoggedIn={isLoggedIn}>
-
               <Informe />
             </ProtectedRoute>
           }
         />
-
-        <Route
-          path="/vermiscausas"
-          element={
-            
-            //ver mi lista de cusas 
-            <MisCausas />
-
-          }
-        />
-        <Route
-          path="/viewcausa"
-          element={
-            
-            //ver la causa cuando ya este finalizada
-            <ViewCausa />
-
-          }
-        />
-
-        <Route
-          path="/paginadonar"
-          element={
-            /* esta al igual que crear causa debe estar protegida pero no me cargaba cuando la protegi asi que la deje tal cual */
-            <DonarPage />
-          }
-        />
+        <Route path="/vermiscausas" element={<MisCausas />} />
+        <Route path="/viewcausa" element={<ViewCausa />} />
+        <Route path="/paginadonar" element={<DonarPage />} />
       </Routes>
     </Router>
   );

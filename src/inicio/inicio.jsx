@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "./inicio.css";
 import Navbar from "../navbar/navbar";
 import Footer from "../Footer/Footer";
@@ -8,6 +9,7 @@ import { Carousel } from "react-bootstrap";
 const Home = () => {
   const [causas, setCausas] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCausas = async () => {
@@ -44,7 +46,7 @@ const Home = () => {
             <p>La plataforma líder en crowdfunding para causas importantes</p>
             <button
               className="cta-button"
-              onClick={() => window.location.href = '/crearcausa'}
+              onClick={() => navigate('/crearcausa')}
             >
               Iniciar una recaudación
             </button>
@@ -92,7 +94,7 @@ const Home = () => {
                         </div>
                         <button
                           className="donate-button"
-                          onClick={() => window.location.href = `/detallecausa`}
+                          onClick={() => navigate(`/detallecausa/${causa.id}`)}
                         >
                           Ver
                         </button>
