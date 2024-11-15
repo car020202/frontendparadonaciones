@@ -4,13 +4,14 @@ import { FaHandHoldingHeart } from 'react-icons/fa';
 import Navbar from '../navbar/navbar';
 import Footer from '../Footer/Footer';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './usuario.css';
 import logo from '../assets/logo.webp';
 
 const Usuario = () => {
-  const [username, setUsername] = useState('calo');
-  const [email, setEmail] = useState('calo@gmail.com');
-  const [password, setPassword] = useState('1234');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('****'); // Contraseña oculta por defecto
   const [donations, setDonations] = useState([
     { id: 1, name: 'Donación A', status: 'En curso', progress: 60 },
     { id: 2, name: 'Donación B', status: 'Finalizada', progress: 100 },
@@ -20,11 +21,26 @@ const Usuario = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedUsername = localStorage.getItem('username');
-    const storedEmail = localStorage.getItem('email');
-    if (storedUsername) setUsername(storedUsername);
-    if (storedEmail) setEmail(storedEmail);
+    const fetchUserProfile = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get('http://localhost:3000/api/users/profile', {
+          headers: { Authorization: `Bearer ${token}` } // Agregar el prefijo Bearer aquí
+        });
+        const userData = response.data;
+        setUsername(userData.nombre);
+        setEmail(userData.email);
+        setPassword('****'); // Muestra la contraseña oculta
+      } catch (error) {
+        console.error('Error al obtener el perfil del usuario:', error);
+        alert('No se pudo cargar el perfil');
+      }
+    };
+  
+    fetchUserProfile();
   }, []);
+  
+  
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -53,7 +69,6 @@ const Usuario = () => {
 
   return (
     <>
-      
       <div className="user-profile-background">
         <Container className="user-profile-container d-flex">
           <div style={{ flex: 1 }}>
@@ -122,15 +137,10 @@ const Usuario = () => {
                       <Button variant="info" className="report-button" onClick={() => navigate('/informe')}>Ver Informe</Button>
                     )}
                   </div>
-                  
                 </ListGroup.Item>
               ))}
             </ListGroup>
-
-            
           </div>
-          
-
         </Container>
       </div>
       <Footer />
