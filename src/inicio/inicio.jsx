@@ -92,9 +92,9 @@ const Home = () => {
                         </div>
                         <button
                           className="donate-button"
-                          onClick={() => window.location.href = `/paginadonar/${causa.id}`}
+                          onClick={() => window.location.href = `/detallecausa`}
                         >
-                          Donar ahora
+                          Ver
                         </button>
                       </div>
                     </div>
