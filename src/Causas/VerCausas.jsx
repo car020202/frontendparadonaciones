@@ -30,8 +30,10 @@ const ViewCausas = () => {
     <>
       <Navbar />
       <div className="button-container" style={{ display: 'flex', justifyContent: 'flex-end', padding: '20px 50px' }}>
-        <button className="create-causa-button" onClick={() => window.location.href = '/crearcausa'} style={{ backgroundColor: '#007B8A',
-           color: 'white', border: 'none', padding: '10px 20px', borderRadius: '5px', cursor: 'pointer', fontSize: '20px' }}>
+        <button className="create-causa-button" onClick={() => window.location.href = '/crearcausa'} style={{
+          backgroundColor: '#007B8A',
+          color: 'white', border: 'none', padding: '10px 20px', borderRadius: '5px', cursor: 'pointer', fontSize: '20px'
+        }}>
           Crear Causa
         </button>
       </div>
@@ -72,20 +74,20 @@ const ViewCausas = () => {
                   </div>
                   <h3 style={{ marginTop: '10px', fontSize: '20px' }}>{causa.title}</h3>
                   <p style={{ fontSize: '18px', color: '#4a4a4a' }}>{causa.description}</p>
-                  
+
                   <div style={{ height: '8px', width: '100%', backgroundColor: '#e0e0e0', borderRadius: '5px', margin: '10px 0' }}>
                     <div style={{ width: '50%', height: '100%', backgroundColor: '#00c853', borderRadius: '5px' }}></div>
                   </div>
                   <button
-                          className="donate-button"
-                          onClick={() => window.location.href = `/paginadonar`}
-                        >
-                          Donar ahora
-                        </button>
+                    className="donate-button"
+                    onClick={() => window.location.href = `/detallecausa`}
+                  >
+                    ver
+                  </button>
                 </div>
               </div>
-              
-              
+
+
             ))}
           </div>
         </div>
