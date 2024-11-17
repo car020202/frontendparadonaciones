@@ -113,8 +113,8 @@ const CausaDetalle = () => {
               height: 'fit-content',
             }}
           >
-            <h2 style={{ color: '#333', fontSize: '24px', textAlign: 'center' }}>{causa.raisedAmount || 0} € recaudados</h2>
-            <p style={{ color: '#555', fontSize: '16px', textAlign: 'center' }}>Objetivo de {causa.goalAmount || 0} €</p>
+            <h2 style={{ color: '#333', fontSize: '24px', textAlign: 'center' }}> ${causa.recaudado || 0} recaudados</h2>
+            <p style={{ color: '#555', fontSize: '16px', textAlign: 'center' }}>Objetivo ${causa.meta || 0}</p>
 
             {/* Barra de progreso */}
             <div
@@ -129,13 +129,13 @@ const CausaDetalle = () => {
             >
               <div
                 style={{
-                  width: `${raisedPercentage}%`,
+                  width: `${(causa.recaudado / causa.meta) * 100 || 0}%`,
                   height: '100%',
                   backgroundColor: '#007c8c',
                 }}
               ></div>
             </div>
-            <p style={{ color: '#333', fontSize: '16px', textAlign: 'center' }}>{raisedPercentage}% alcanzado</p>
+            <p style={{ color: '#333', fontSize: '16px', textAlign: 'center' }}>{(causa.recaudado / causa.meta) * 100 || 0}% alcanzado</p>
 
             <button
               onClick={() => window.location.href = `/paginadonar`}
