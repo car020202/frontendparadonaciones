@@ -130,7 +130,7 @@ function App() {
         />
         <Route path="/vermiscausas" element={<MisCausas />} />
         <Route path="/viewcausa" element={<ViewCausa />} />
-        <Route path="/paginadonar" element={<DonarPage />} />
+        <Route path="/paginadonar/:idCausa" element={<DonarPage />} />
       </Routes>
     </Router>
   );
