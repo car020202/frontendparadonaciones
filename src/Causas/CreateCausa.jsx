@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from '../navbar/navbar';
+import { useNavigate } from 'react-router-dom'; // Importar useNavigate
 import Footer from '../Footer/Footer';
 import axios from 'axios';
 import backgroundImage from '../assets/background2.webp';
-import './GestionarCausas.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Swal from 'sweetalert2'; // Importar SweetAlert2
 
 const CreateCausa = () => {
+  const navigate = useNavigate(); // Inicializar navigate
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [meta, setMeta] = useState('');
@@ -16,8 +16,6 @@ const CreateCausa = () => {
   const [startDateTime, setStartDateTime] = useState('');
   const [endDateTime, setEndDateTime] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   // Obtener categorías al cargar el componente
@@ -28,7 +26,6 @@ const CreateCausa = () => {
         setCategories(response.data);
       } catch (error) {
         console.error('Error al obtener las categorías:', error);
-        setErrorMessage('Error al obtener las categorías');
       }
     };
 
@@ -53,17 +50,32 @@ const CreateCausa = () => {
     event.preventDefault();
 
     if (!startDateTime || isNaN(new Date(startDateTime).getTime())) {
-      setErrorMessage('Por favor, ingresa una fecha de inicio válida');
+      Swal.fire({
+        title: 'Error',
+        text: 'Por favor, ingresa una fecha de inicio válida.',
+        icon: 'error',
+        confirmButtonText: 'Cerrar',
+      });
       return;
     }
 
     if (!endDateTime || isNaN(new Date(endDateTime).getTime())) {
-      setErrorMessage('Por favor, ingresa una fecha de fin válida');
+      Swal.fire({
+        title: 'Error',
+        text: 'Por favor, ingresa una fecha de fin válida.',
+        icon: 'error',
+        confirmButtonText: 'Cerrar',
+      });
       return;
     }
 
     if (!selectedCategory || isNaN(parseInt(selectedCategory))) {
-      setErrorMessage('Por favor, selecciona una categoría válida');
+      Swal.fire({
+        title: 'Error',
+        text: 'Por favor, selecciona una categoría válida.',
+        icon: 'error',
+        confirmButtonText: 'Cerrar',
+      });
       return;
     }
 
@@ -89,8 +101,30 @@ const CreateCausa = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-      setSuccessMessage('Causa creada con éxito!');
-      setErrorMessage('');
+
+      // Alerta de éxito
+      Swal.fire({
+        title: '¡Causa creada con éxito!',
+        text: 'Tu causa ha sido registrada correctamente.',
+        icon: 'success',
+        confirmButtonText: 'Ir al inicio',
+        customClass: {
+          confirmButton: 'custom-swal-button',
+        },
+        didOpen: () => {
+          const confirmButton = Swal.getConfirmButton();
+          confirmButton.style.backgroundColor = '#007c8c'; // Botón verde
+          confirmButton.style.color = '#fff';
+          confirmButton.style.border = 'none';
+          confirmButton.style.borderRadius = '5px';
+          confirmButton.style.padding = '10px 20px';
+        },
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate('/'); // Redirige al inicio
+        }
+      });
+
       // Limpiar el formulario
       setTitle('');
       setDescription('');
@@ -102,8 +136,14 @@ const CreateCausa = () => {
       setEndDateTime('');
     } catch (error) {
       console.error('Error al crear la causa:', error);
-      setErrorMessage('Hubo un problema al crear la causa.');
-      setSuccessMessage('');
+
+      // Alerta de error
+      Swal.fire({
+        title: 'Error',
+        text: 'Hubo un problema al crear la causa. Por favor, inténtalo nuevamente.',
+        icon: 'error',
+        confirmButtonText: 'Cerrar',
+      });
     } finally {
       setIsLoading(false);
     }
@@ -111,7 +151,6 @@ const CreateCausa = () => {
 
   return (
     <>
-      
       <div
         className="create-causa-container"
         style={{
@@ -141,8 +180,6 @@ const CreateCausa = () => {
           >
             Crear Causa
           </h2>
-          {errorMessage && <p className="text-danger">{errorMessage}</p>}
-          {successMessage && <p className="text-success">{successMessage}</p>}
           <form onSubmit={handleSubmit}>
             <div className="row mb-4">
               <div className="col-md-6">
@@ -279,16 +316,20 @@ const CreateCausa = () => {
 
             <button
               type="submit"
-              className="btn btn-primary btn-block"
+              className="btn btn-primary"
               disabled={isLoading}
               style={{
                 backgroundColor: '#007c8c',
                 borderColor: '#007c8c',
                 fontWeight: 'bold',
+                fontSize: '18px', // Texto más grande
+                display: 'block', // Para centrar el botón
+                margin: '20px auto', // Centrar horizontalmente
               }}
             >
               {isLoading ? 'Creando...' : 'Crear'}
             </button>
+
           </form>
         </div>
       </div>
