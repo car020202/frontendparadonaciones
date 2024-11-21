@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import Navbar from '../navbar/navbar';
+import { useParams, useNavigate } from 'react-router-dom'; // Agregar useNavigate
 import Footer from '../Footer/Footer';
 import backgroundImage from '../assets/background2.webp';
 import axios from 'axios';
+import Swal from 'sweetalert2'; // Importamos SweetAlert2
 
 const DonarPage = () => {
   const { idCausa } = useParams(); // Obtiene el ID de la causa desde la URL
+  const navigate = useNavigate(); // Inicializa navigate
   const [donationEntries, setDonationEntries] = useState([
     {
       donationType: '',
@@ -81,8 +82,6 @@ const DonarPage = () => {
           images.forEach((image) => formData.append('img', image));
         }
 
-        console.log('Datos enviados al backend:', Object.fromEntries(formData)); // Para depurar
-
         await axios.post('http://localhost:3000/api/donaciones', formData, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -91,16 +90,57 @@ const DonarPage = () => {
         });
       }
 
-      alert('Donación realizada con éxito');
+      // Alerta de éxito con redirección al home
+      Swal.fire({
+        title: '¡Donación realizada!',
+        text: 'Tu donación ha sido procesada con éxito. ¡Gracias por tu apoyo!',
+        icon: 'success',
+        confirmButtonText: 'Ir al inicio',
+        customClass: {
+          confirmButton: 'custom-swal-button',
+        },
+        didOpen: () => {
+          const confirmButton = Swal.getConfirmButton();
+          if (confirmButton) {
+            confirmButton.style.backgroundColor = '#007B8A'; // Color del botón
+            confirmButton.style.color = '#fff';
+            confirmButton.style.border = 'none';
+            confirmButton.style.borderRadius = '5px';
+            confirmButton.style.padding = '10px 20px';
+            confirmButton.style.cursor = 'pointer';
+          }
+        },
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate('/'); // Redirige al inicio cuando se presiona el botón
+        }
+      });
     } catch (error) {
       console.error('Error al realizar la donación:', error);
-      alert('Error al realizar la donación');
+
+      // Alerta de error
+      Swal.fire({
+        title: 'Error',
+        text: 'Ocurrió un problema al procesar tu donación. Por favor, inténtalo nuevamente.',
+        icon: 'error',
+        confirmButtonText: 'Cerrar',
+        didOpen: () => {
+          const confirmButton = Swal.getConfirmButton();
+          if (confirmButton) {
+            confirmButton.style.backgroundColor = '#dc3545'; // Rojo para el error
+            confirmButton.style.color = '#fff';
+            confirmButton.style.border = 'none';
+            confirmButton.style.borderRadius = '5px';
+            confirmButton.style.padding = '10px 20px';
+            confirmButton.style.cursor = 'pointer';
+          }
+        },
+      });
     }
   };
 
   return (
     <>
-    
       <div
         className="donar-page-container"
         style={{
@@ -163,93 +203,6 @@ const DonarPage = () => {
                     placeholder="Ingresa la cantidad que deseas donar"
                   />
                 </div>
-              )}
-
-              {entry.donationType === 'servicio_social' && (
-                <div style={{ margin: '20px 0' }}>
-                  <h3>Detalles del servicio:</h3>
-                  <textarea
-                    value={entry.serviceDetails}
-                    onChange={(e) => handleInputChange(index, 'serviceDetails', e.target.value)}
-                    style={{ padding: '10px', width: '100%' }}
-                    placeholder="Describe el tipo de servicio social que deseas ofrecer"
-                  />
-                </div>
-              )}
-
-              {entry.donationType === 'ropa' && (
-                <div style={{ margin: '20px 0' }}>
-                  <h3>Descripción de la ropa:</h3>
-                  <textarea
-                    value={entry.clothingDescription}
-                    onChange={(e) => handleInputChange(index, 'clothingDescription', e.target.value)}
-                    style={{ padding: '10px', width: '100%' }}
-                    placeholder="Describe la ropa que deseas donar"
-                  />
-                  <h3 style={{ marginTop: '20px' }}>Subir fotos de la ropa:</h3>
-                  <input
-                    type="file"
-                    multiple
-                    onChange={(e) => handleImageUpload(index, e, 'clothingImages')}
-                  />
-                  <div className="clothing-preview" style={{ marginTop: '20px' }}>
-                    {entry.clothingImages.map((image, imgIndex) => (
-                      <img
-                        key={imgIndex}
-                        src={URL.createObjectURL(image)}
-                        alt={`Clothing ${imgIndex + 1}`}
-                        style={{ width: '100px', height: '100px', objectFit: 'cover', marginRight: '10px' }}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {entry.donationType === 'utensilios' && (
-                <div style={{ margin: '20px 0' }}>
-                  <h3>Descripción de los utensilios:</h3>
-                  <textarea
-                    value={entry.utensilsDescription}
-                    onChange={(e) => handleInputChange(index, 'utensilsDescription', e.target.value)}
-                    style={{ padding: '10px', width: '100%' }}
-                    placeholder="Describe los utensilios que deseas donar"
-                  />
-                  <h3 style={{ marginTop: '20px' }}>Subir fotos de los utensilios:</h3>
-                  <input
-                    type="file"
-                    multiple
-                    onChange={(e) => handleImageUpload(index, e, 'utensilImages')}
-                  />
-                  <div className="utensil-preview" style={{ marginTop: '20px' }}>
-                    {entry.utensilImages.map((image, imgIndex) => (
-                      <img
-                        key={imgIndex}
-                        src={URL.createObjectURL(image)}
-                        alt={`Utensil ${imgIndex + 1}`}
-                        style={{ width: '100px', height: '100px', objectFit: 'cover', marginRight: '10px' }}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {index !== 0 && (
-                <button
-                  onClick={() => handleRemoveDonationEntry(index)}
-                  style={{
-                    position: 'absolute',
-                    top: '10px',
-                    right: '10px',
-                    backgroundColor: '#dc3545',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '5px',
-                    padding: '5px 10px',
-                    cursor: 'pointer',
-                  }}
-                >
-                  Eliminar
-                </button>
               )}
             </div>
           ))}

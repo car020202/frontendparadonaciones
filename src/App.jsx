@@ -28,12 +28,14 @@ import CausaDetalle from './Causas/CausaDetalle';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     const role = localStorage.getItem('role');
     setIsLoggedIn(!!token);
     setUserRole(role ? parseInt(role) : null);
+    setIsLoading(false);
   }, []);
 
   // Función para cerrar sesión
@@ -44,6 +46,11 @@ function App() {
     setIsLoggedIn(false);
     setUserRole(null);
   };
+
+  if (isLoading) {
+    // Muestra un indicador de carga mientras los valores inicializan
+    return <div>Cargando...</div>;
+  }
 
   return (
     <Router>
@@ -106,7 +113,12 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/crearcausa" element={<CreateCausa />} />
+       <Route path="/crearcausa" element={
+          <ProtectedRoute isLoggedIn={isLoggedIn}>
+            <CreateCausa />
+          </ProtectedRoute>
+        }
+        />
         <Route path="/vercausas" element={<VerCausas />} />
         <Route path="/detallecausa/:id" element={<CausaDetalle />} />
         <Route path="/categorias" element={<Categorias />} />
@@ -128,9 +140,30 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/vermiscausas" element={<MisCausas />} />
-        <Route path="/viewcausa" element={<ViewCausa />} />
-        <Route path="/paginadonar/:idCausa" element={<DonarPage />} />
+        <Route
+          path="/vermiscausas"
+          element={
+            <ProtectedRoute isLoggedIn={isLoggedIn}>
+              <MisCausas />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/viewcausa"
+          element={
+            <ProtectedRoute isLoggedIn={isLoggedIn}>
+              <ViewCausa />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/paginadonar/:idCausa"
+          element={
+            <ProtectedRoute isLoggedIn={isLoggedIn}>
+              <DonarPage />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );
