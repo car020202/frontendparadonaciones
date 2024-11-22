@@ -28,7 +28,6 @@ const ViewCausas = () => {
 
   return (
     <>
-      
       <div
         className="button-container"
         style={{
@@ -39,7 +38,7 @@ const ViewCausas = () => {
       >
         <button
           className="create-causa-button"
-          onClick={() => window.location.href = '/crearcausa'}
+          onClick={() => (window.location.href = '/crearcausa')}
           style={{
             backgroundColor: '#007B8A',
             color: 'white',
@@ -179,11 +178,10 @@ const ViewCausas = () => {
                     >
                       <div
                         style={{
-                          width: `${
-                            causa.meta > 0
+                          width: `${causa.meta > 0
                               ? Math.min((causa.recaudado / causa.meta) * 100, 100)
                               : 0
-                          }%`,
+                            }%`,
                           height: '100%',
                           backgroundColor: '#00c853',
                           borderRadius: '5px',
@@ -191,22 +189,25 @@ const ViewCausas = () => {
                       ></div>
                     </div>
                   </div>
-                  <button
-                    className="donate-button"
-                    onClick={() =>
-                      window.location.href = `/detallecausa/${causa.id}`
-                    }
-                    style={{
-                      backgroundColor: '#007B8A',
-                      color: 'white',
-                      border: 'none',
-                      padding: '10px 20px',
-                      borderRadius: '5px',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    Ver
-                  </button>
+                  {causa.finalizada && (
+                    <button
+                      className="donate-button"
+                      onClick={() =>
+                        (window.location.href = `/detallecausa/${causa.id}`)
+                      }
+                      style={{
+                        backgroundColor: '#007B8A',
+                        color: 'white',
+                        border: 'none',
+                        padding: '10px 20px',
+                        borderRadius: '5px',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      Ver
+                    </button>
+                  )}
+
                 </div>
               </div>
             ))}

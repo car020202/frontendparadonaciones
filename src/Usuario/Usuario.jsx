@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Card, Form, Button, ProgressBar, ListGroup } from 'react-bootstrap';
+import { Container, Card, Form, Button } from 'react-bootstrap';
 import { FaHandHoldingHeart } from 'react-icons/fa';
-import Navbar from '../navbar/navbar';
-import Footer from '../Footer/Footer';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Navbar from '../navbar/navbar';
+import Footer from '../Footer/Footer';
 import './Usuario.css';
 import logo from '../assets/logo.webp';
 
@@ -12,46 +12,35 @@ const Usuario = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('****'); // Contraseña oculta por defecto
-  const [donations, setDonations] = useState([
-    { id: 1, name: 'Donación A', status: 'En curso', progress: 60 },
-    { id: 2, name: 'Donación B', status: 'Finalizada', progress: 100 },
-    { id: 3, name: 'Donación C', status: 'En curso', progress: 45 },
-    { id: 1, name: 'Donación A', status: 'En curso', progress: 60 },
-    { id: 2, name: 'Donación B', status: 'Finalizada', progress: 100 },
-    { id: 3, name: 'Donación C', status: 'En curso', progress: 45 }
-  ]);
-
+  const [donations, setDonations] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchUserProfile = async () => {
+    const fetchUserData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:3000/api/users/profile', {
-          headers: { Authorization: `Bearer ${token}` } // Agregar el prefijo Bearer aquí
-        });
-        const userData = response.data;
+        const headers = { Authorization: `Bearer ${token}` };
+
+        // Obtener perfil del usuario
+        const userResponse = await axios.get('http://localhost:3000/api/users/profile', { headers });
+        const userData = userResponse.data;
         setUsername(userData.nombre);
         setEmail(userData.email);
-        setPassword('****'); // Muestra la contraseña oculta
+
+        // Obtener las donaciones del usuario
+        const donationsResponse = await axios.get('http://localhost:3000/api/donaciones/usuario', { headers });
+        setDonations(donationsResponse.data);
       } catch (error) {
-        console.error('Error al obtener el perfil del usuario:', error);
-        alert('No se pudo cargar el perfil');
+        console.error('Error al obtener datos del usuario:', error);
+        alert('Hubo un problema al cargar el perfil y las donaciones.');
       }
     };
 
-    fetchUserProfile();
+    fetchUserData();
   }, []);
 
-
-
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
+  const handleUsernameChange = (e) => setUsername(e.target.value);
+  const handlePasswordChange = (e) => setPassword(e.target.value);
 
   const handleSaveChanges = () => {
     localStorage.setItem('username', username);
@@ -66,9 +55,7 @@ const Usuario = () => {
     window.location.reload();
   };
 
-  const handleViewMisCausas = () => {
-    navigate('/vermiscausas');
-  };
+  const handleViewMisCausas = () => navigate('/vermiscausas');
 
   return (
     <>
@@ -117,40 +104,45 @@ const Usuario = () => {
           <div style={{ flex: 1, marginLeft: '10px', textAlign: 'center' }}>
             <FaHandHoldingHeart className="mb-2" size={160} />
             <h2 className="donations-title">Tus Donaciones</h2>
-            {/* Contenedor con scroll para las donaciones */}
-            <div style={{ maxHeight: '332px', overflowY: 'auto', border: '1px solid #ddd', borderRadius: '10px', padding: '10px' }}>
-              <ListGroup>
-                {donations.map((donation) => (
-                  <ListGroup.Item key={donation.id} className="donation-item">
-                    <div className="d-flex justify-content-between align-items-center">
-                      <div>
-                        <h5>{donation.name}</h5>
-                        <p>{donation.status === 'Finalizada' ? 'Finalizado' : 'En curso'}</p>
-                      </div>
-                      {donation.status === 'En curso' && (
-                        <div style={{ height: '8px', width: '75%', backgroundColor: '#e0e0e0', borderRadius: '5px', margin: '10px 0' }}>
-                          <div
-                            style={{
-                              width: `${donation.progress}%`,
-                              height: '100%',
-                              backgroundColor: '#00c853',
-                              borderRadius: '5px',
-                            }}
-                          ></div>
-                        </div>
-                      )}
-                      {donation.status === 'Finalizada' && (
-                        <Button variant="info" className="report-button" onClick={() => navigate('/informe')}>
-                          Ver Informe
-                        </Button>
-                      )}
+            <div style={{ maxHeight: '332px', overflowY: 'auto', padding: '10px' }}>
+              {donations.map((donation) => (
+                <div
+                  key={donation.id}
+                  style={{
+                    backgroundColor: '#ffffff',
+                    width: '100%',
+                    padding: '15px',
+                    borderRadius: '10px',
+                    border: '2px solid #007B8A', // Borde del mismo color
+                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+                    marginBottom: '10px',
+                    display: 'flex', // Ajustar a lo largo
+                    gap: '20px',
+                    alignItems: 'center',
+                  }}
+                >
+                  <div style={{ flex: '1' }}>
+                    <h5>Tipo de Donación:</h5>
+                    <p>{donation.tipoDonacion}</p>
+                  </div>
+                  <div style={{ flex: '1' }}>
+                    <h5>Descripción:</h5>
+                    <p>{donation.descripcion || 'Sin descripción'}</p>
+                  </div>
+                  <div style={{ flex: '1' }}>
+                    <h5>Causa:</h5>
+                    <p>{donation.causaNombre || 'Causa no especificada'}</p>
+                  </div>
+                  {donation.monto && (
+                    <div style={{ flex: '1' }}>
+                      <h5>Monto:</h5>
+                      <p>${donation.monto}</p>
                     </div>
-                  </ListGroup.Item>
-                ))}
-              </ListGroup>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
-
         </Container>
       </div>
       <Footer />
