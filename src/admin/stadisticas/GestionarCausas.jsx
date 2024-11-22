@@ -52,9 +52,38 @@ const CausesStatistics = () => {
   return (
     <>
       <Navbar />
-      <div className="bodyadmin">
-        <div className="causes-statistics">
-          <h1 className="title">Estadísticas de Causas</h1>
+      <div
+        style={{
+          marginLeft: '220px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: '100vh',
+          padding: '20px',
+          backgroundColor: '#f9f9f9',
+        }}
+      >
+        <div
+          style={{
+            width: '100%',
+            maxWidth: '1300px',
+            backgroundColor: '#ffffff',
+            padding: '20px',
+            borderRadius: '10px',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+            marginBottom: '20px',
+          }}
+        >
+          <h1
+            style={{
+              textAlign: 'center',
+              marginBottom: '20px',
+              color: '#007B8A',
+            }}
+          >
+            Estadísticas de Causas
+          </h1>
 
           {loading ? (
             <p style={{ textAlign: 'center', fontSize: '18px' }}>Cargando estadísticas...</p>
@@ -67,12 +96,51 @@ const CausesStatistics = () => {
           )}
         </div>
 
-        <div className="cause-list">
-          <h2 className="title">Lista de Causas por Categoría</h2>
-          <ul style={{ listStyleType: 'none', padding: 0, textAlign: 'center', fontSize: '18px' }}>
+        <div
+          style={{
+            width: '100%',
+            maxWidth: '1300px',
+            backgroundColor: '#ffffff',
+            padding: '20px',
+            borderRadius: '10px',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+          }}
+        >
+          <h2
+            style={{
+              textAlign: 'center',
+              marginBottom: '20px',
+              color: '#007B8A',
+            }}
+          >
+            Lista de Causas por Categoría
+          </h2>
+          <ul
+            style={{
+              listStyleType: 'none',
+              padding: 0,
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              gap: '20px',
+            }}
+          >
             {categorias.map((categoria) => (
-              <li key={categoria.id} style={{ marginBottom: '10px' }}>
-                {categoria.nombre} - {categoria.count} causas
+              <li
+                key={categoria.id}
+                style={{
+                  backgroundColor: '#ffffff',
+                  border: '2px solid #007B8A',
+                  borderRadius: '10px',
+                  padding: '15px',
+                  minWidth: '200px',
+                  textAlign: 'center',
+                  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+                  fontSize: '16px',
+                  color: '#333',
+                }}
+              >
+                <strong>{categoria.nombre}</strong> <br /> {categoria.count} causas
               </li>
             ))}
           </ul>

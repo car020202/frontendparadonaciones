@@ -1,131 +1,165 @@
 import React, { useState, useEffect } from 'react';
-import './Pagoscss/Pagos.css'; 
-import { Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js';
-import { FaChartLine, FaReceipt, FaDollarSign } from 'react-icons/fa';
 import Navbar from '../NarbarAdmin';
+import axios from 'axios';
 
-ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
-
-const PaymentsStatistics = () => {
-  const [paymentStats, setPaymentStats] = useState({
-    totalPayments: 5000,
-    numberOfPayments: 150,
-    averagePayment: 33,
-  });
-
-  const [selectedIndex, setSelectedIndex] = useState(null);
+const DonationsHistory = () => {
+  const [donations, setDonations] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
 
   useEffect(() => {
-    if (selectedDate) {
-      // Simulación de actualización de datos basados en la fecha seleccionada
-      const updatedStats = {
-        totalPayments: Math.floor(Math.random() * 10000), // Simulación de datos dinámicos
-        numberOfPayments: Math.floor(Math.random() * 300),
-        averagePayment: Math.floor(Math.random() * 100),
-      };
-      setPaymentStats(updatedStats);
-    }
+    const fetchDonationsHistory = async () => {
+      try {
+        setLoading(true);
+        setErrorMessage('');
+        const endpoint = selectedDate
+          ? `http://localhost:3000/api/donaciones/historial?fecha=${selectedDate}`
+          : `http://localhost:3000/api/donaciones/historial`;
+
+        console.log('Solicitando historial de donaciones del endpoint:', endpoint);
+        const response = await axios.get(endpoint);
+        console.log('Respuesta de la API:', response.data);
+
+        setDonations(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error al obtener el historial de donaciones:', error);
+        setErrorMessage('No se pudo cargar el historial de donaciones.');
+        setLoading(false);
+      }
+    };
+
+    fetchDonationsHistory();
   }, [selectedDate]);
 
-  const originalLabels = ['Total Pagado', 'Número de Pagos', 'Pago Promedio'];
-  const originalData = [
-    paymentStats.totalPayments,
-    paymentStats.numberOfPayments,
-    paymentStats.averagePayment,
-  ];
-  const originalColors = ['#FF6384', '#36A2EB', '#FFCE56'];
-
-  // Reordena los datos y colores en base a la selección
-  const reorderedData = selectedIndex !== null
-    ? [
-        originalData[selectedIndex],
-        ...originalData.filter((_, index) => index !== selectedIndex)
-      ]
-    : originalData;
-
-  const reorderedLabels = selectedIndex !== null
-    ? [
-        originalLabels[selectedIndex],
-        ...originalLabels.filter((_, index) => index !== selectedIndex)
-      ]
-    : originalLabels;
-
-  const reorderedColors = selectedIndex !== null
-    ? [
-        '#007b8a',
-        ...originalColors.filter((_, index) => index !== selectedIndex)
-      ]
-    : originalColors;
-
-  const chartData = {
-    labels: reorderedLabels,
-    datasets: [
-      {
-        label: 'Estadísticas de Pagos',
-        data: reorderedData,
-        backgroundColor: reorderedColors,
-      },
-    ],
-  };
-
-  const chartOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-  };
-
-  const handleCardClick = (index) => {
-    setSelectedIndex(index);
-  };
-
   const handleDateChange = (event) => {
-    setSelectedDate(event.target.value);
+    const date = event.target.value;
+    console.log('Fecha seleccionada:', date);
+    setSelectedDate(date);
   };
 
   return (
     <>
-    <Navbar/>
-    <div className='bodyadmin'>
-      <div className="payments-statistics">
-        <h1 className="title">Estadísticas de Pagos</h1>
-        <input 
-          type="date" 
-          className="date-picker" 
-          value={selectedDate} 
-          onChange={handleDateChange} 
-        />
-        <div style={{ height: '400px', width: '1000px', margin: '0 auto' }}>
-          <Bar data={chartData} options={chartOptions} />
+      <Navbar />
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: '100vh',
+          padding: '20px',
+          backgroundColor: '#f9f9f9',
+        }}
+      >
+        <div
+          style={{
+            marginLeft: '250px',
+            width: '100%',
+            maxWidth: '1500px',
+            backgroundColor: '#ffffff',
+            padding: '20px',
+            borderRadius: '10px',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+          }}
+        >
+          <h1
+            style={{
+              textAlign: 'center',
+              marginBottom: '20px',
+              color: '#007B8A', // Cambiado a verde
+            }}
+          >
+            Historial de Donaciones
+          </h1>
+          <input
+            type="date"
+            value={selectedDate}
+            onChange={handleDateChange}
+            style={{
+              display: 'block',
+              margin: '0 auto 20px auto',
+              padding: '10px',
+              fontSize: '16px',
+              border: '1px solid #ccc',
+              borderRadius: '5px',
+              width: '100%',
+              maxWidth: '300px',
+            }}
+          />
+          {loading ? (
+            <p style={{ textAlign: 'center', fontSize: '18px' }}>Cargando historial...</p>
+          ) : errorMessage ? (
+            <p style={{ textAlign: 'center', color: 'red', fontSize: '18px' }}>{errorMessage}</p>
+          ) : (
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '20px',
+                marginTop: '20px',
+                maxHeight: '500px', // Limitar altura para permitir scroll
+                overflowY: 'auto', // Activar scroll vertical
+                paddingRight: '10px', // Espacio para el scroll
+              }}
+            >
+              {donations.length > 0 ? (
+                donations.map((donation) => (
+                  <div
+                    key={donation.id}
+                    style={{
+                      backgroundColor: '#ffffff',
+                      width: '100%',
+                      padding: '15px',
+                      borderRadius: '10px',
+                      border: '2px solid #007B8A', // Borde del mismo color
+                      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+                      display: 'flex',
+                      flexWrap: 'wrap', // Permitir filas
+                      gap: '20px',
+                      fontSize: '16px', // Letras más grandes
+                      minHeight: '100px', // Altura mínima de la tarjeta
+                    }}
+                  >
+                    <p style={{ flex: '1', margin: '0' }}>
+                      <strong>Usuario:</strong> {donation.usuarioNombre || 'Anónimo'}
+                    </p>
+                    <p style={{ flex: '1', margin: '0' }}>
+                      <strong>Causa:</strong> {donation.causaNombre || 'Desconocida'}
+                    </p>
+                    <p style={{ flex: '1', margin: '0' }}>
+                      <strong>Tipo:</strong> {donation.tipoDonacion}
+                    </p>
+                    <p style={{ flex: '1', margin: '0' }}>
+                      <strong>Monto:</strong> {donation.monto ? `$${donation.monto}` : '-'}
+                    </p>
+                    <p style={{ flex: '1', margin: '0' }}>
+                      <strong>Fecha:</strong>{' '}
+                      {new Date(donation.fechaDonacion).toLocaleDateString()}
+                    </p>
+                    <p style={{ flex: '2', margin: '0' }}>
+                      <strong>Descripción:</strong> {donation.descripcion || '-'}
+                    </p>
+                  </div>
+                ))
+              ) : (
+                <p
+                  style={{
+                    textAlign: 'center',
+                    fontSize: '18px',
+                    color: '#777',
+                  }}
+                >
+                  No se encontraron donaciones para la fecha seleccionada.
+                </p>
+              )}
+            </div>
+          )}
         </div>
       </div>
-
-      <div className="cards-container">
-        <div className="stat-cardP" onClick={() => handleCardClick(0)} style={{ backgroundColor: '#007b8a', color: '#FFFFFF', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
-          <FaDollarSign className="card-icon" />
-          <div className="card-info">
-            <h2 className="card-title">Total Pagado</h2>
-            <p className="card-value">${paymentStats.totalPayments}</p>
-          </div>
-        </div>
-        <div className="stat-cardP" onClick={() => handleCardClick(1)} style={{ backgroundColor: '#007b8a', color: '#FFFFFF', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
-          <FaReceipt className="card-icon" />
-          <div className="card-info">
-            <h2 className="card-title">Número de Pagos</h2>
-            <p className="card-value">{paymentStats.numberOfPayments}</p>
-          </div>
-        </div>
-        <div className="stat-cardP" onClick={() => handleCardClick(2)} style={{ backgroundColor: '#007b8a', color: '#FFFFFF', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
-          <FaChartLine className="card-icon" />
-          <div className="card-info">
-            <h2 className="card-title">Pago Promedio</h2>
-            <p className="card-value">${paymentStats.averagePayment}</p>
-          </div>
-        </div>
-      </div>
-    </div>
     </>
   );
 };
 
-export default PaymentsStatistics;
+export default DonationsHistory;

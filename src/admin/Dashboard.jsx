@@ -17,16 +17,16 @@ const AdminPanel = () => {
           <Link to="/donaciones" className="stat-card">
             <FaChartBar className="stat-icon" />
             <div className="stat-info">
-              <h2>Donaciones</h2>
-              <p>500</p>
+              <h2 >Donaciones</h2>
+              
             </div>
           </Link>
 
           <Link to="/pagos" className="stat-card">
             <FaWallet className="stat-icon" />
             <div className="stat-info">
-              <h2>Pagos Realizados</h2>
-              <p>300</p>
+              <h2>Historial de Donaciones</h2>
+              
             </div>
           </Link>
         </section>
