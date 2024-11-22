@@ -105,11 +105,7 @@ const RightSidebar = () => {
               <i className="fas fa-chart-bar"></i> Donaciones
             </SidebarLink>
           </Nav.Item>
-          <Nav.Item>
-            <SidebarLink to="/pagos">
-              <i className="fas fa-wallet"></i> Pagos Realizados
-            </SidebarLink>
-          </Nav.Item>
+          
           <hr />
           <Nav.Item>
             <SidebarLink to="/gestionarcausas">

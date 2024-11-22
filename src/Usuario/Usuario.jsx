@@ -15,6 +15,9 @@ const Usuario = () => {
   const [donations, setDonations] = useState([
     { id: 1, name: 'Donación A', status: 'En curso', progress: 60 },
     { id: 2, name: 'Donación B', status: 'Finalizada', progress: 100 },
+    { id: 3, name: 'Donación C', status: 'En curso', progress: 45 },
+    { id: 1, name: 'Donación A', status: 'En curso', progress: 60 },
+    { id: 2, name: 'Donación B', status: 'Finalizada', progress: 100 },
     { id: 3, name: 'Donación C', status: 'En curso', progress: 45 }
   ]);
 
@@ -36,11 +39,11 @@ const Usuario = () => {
         alert('No se pudo cargar el perfil');
       }
     };
-  
+
     fetchUserProfile();
   }, []);
-  
-  
+
+
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -114,27 +117,40 @@ const Usuario = () => {
           <div style={{ flex: 1, marginLeft: '10px', textAlign: 'center' }}>
             <FaHandHoldingHeart className="mb-2" size={160} />
             <h2 className="donations-title">Tus Donaciones</h2>
-            <ListGroup>
-              {donations.map(donation => (
-                <ListGroup.Item key={donation.id} className="donation-item">
-                  <div className="d-flex justify-content-between align-items-center">
-                    <div>
-                      <h5>{donation.name}</h5>
-                      <p>{donation.status === 'Finalizada' ? 'Finalizado' : 'En curso'}</p>
-                    </div>
-                    {donation.status === 'En curso' && (
-                      <div style={{ height: '8px', width: '75%', backgroundColor: '#e0e0e0', borderRadius: '5px', margin: '10px 0' }}>
-                        <div style={{ width: `${donation.progress}%`, height: '100%', backgroundColor: '#00c853', borderRadius: '5px' }}></div>
+            {/* Contenedor con scroll para las donaciones */}
+            <div style={{ maxHeight: '332px', overflowY: 'auto', border: '1px solid #ddd', borderRadius: '10px', padding: '10px' }}>
+              <ListGroup>
+                {donations.map((donation) => (
+                  <ListGroup.Item key={donation.id} className="donation-item">
+                    <div className="d-flex justify-content-between align-items-center">
+                      <div>
+                        <h5>{donation.name}</h5>
+                        <p>{donation.status === 'Finalizada' ? 'Finalizado' : 'En curso'}</p>
                       </div>
-                    )}
-                    {donation.status === 'Finalizada' && (
-                      <Button variant="info" className="report-button" onClick={() => navigate('/informe')}>Ver Informe</Button>
-                    )}
-                  </div>
-                </ListGroup.Item>
-              ))}
-            </ListGroup>
+                      {donation.status === 'En curso' && (
+                        <div style={{ height: '8px', width: '75%', backgroundColor: '#e0e0e0', borderRadius: '5px', margin: '10px 0' }}>
+                          <div
+                            style={{
+                              width: `${donation.progress}%`,
+                              height: '100%',
+                              backgroundColor: '#00c853',
+                              borderRadius: '5px',
+                            }}
+                          ></div>
+                        </div>
+                      )}
+                      {donation.status === 'Finalizada' && (
+                        <Button variant="info" className="report-button" onClick={() => navigate('/informe')}>
+                          Ver Informe
+                        </Button>
+                      )}
+                    </div>
+                  </ListGroup.Item>
+                ))}
+              </ListGroup>
+            </div>
           </div>
+
         </Container>
       </div>
       <Footer />
