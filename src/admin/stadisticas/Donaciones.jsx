@@ -4,121 +4,134 @@ import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js';
 import { FaChartBar, FaUsers, FaDollarSign } from 'react-icons/fa';
 import Navbar from '../NarbarAdmin';
-
+import axios from 'axios';
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const DonationsStatistics = () => {
-  const [donationStats, setDonationStats] = useState({
-    totalDonations: 1000,
-    numberOfDonors: 50,
-    averageDonation: 20,
-  });
-
-  const [selectedIndex, setSelectedIndex] = useState(null);
+  const [allDonations, setAllDonations] = useState([]); // Almacena todas las donaciones
+  const [totalDonations, setTotalDonations] = useState(0);
+  const [numberOfDonors, setNumberOfDonors] = useState(0);
+  const [averageDonation, setAverageDonation] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
 
   useEffect(() => {
-    if (selectedDate) {
-      // Simulación de actualización de datos basados en la fecha seleccionada
-      const updatedStats = {
-        totalDonations: Math.floor(Math.random() * 2000), // Simulación de datos dinámicos
-        numberOfDonors: Math.floor(Math.random() * 100),
-        averageDonation: Math.floor(Math.random() * 50),
-      };
-      setDonationStats(updatedStats);
-    }
-  }, [selectedDate]);
+    const fetchDonationsStats = async () => {
+      try {
+        setLoading(true);
+        setErrorMessage('');
+        const endpoint = `http://localhost:3000/api/donaciones/estadisticas`;
 
-  const originalLabels = ['Total Donado', 'Número de Donantes', 'Donación Promedio'];
-  const originalData = [
-    donationStats.totalDonations,
-    donationStats.numberOfDonors,
-    donationStats.averageDonation,
-  ];
-  const originalColors = ['#FF6384', '#36A2EB', '#FFCE56'];
+        console.log('Solicitando datos del endpoint:', endpoint); // Depuración
+        const response = await axios.get(endpoint);
+        console.log('Respuesta de la API:', response.data);
 
-  // Reordena los datos y colores en base a la selección
-  const reorderedData = selectedIndex !== null
-    ? [
-        originalData[selectedIndex],
-        ...originalData.filter((_, index) => index !== selectedIndex)
-      ]
-    : originalData;
+        setAllDonations(response.data); // Guardar todas las donaciones
+        processDonations(response.data, selectedDate); // Filtrar por fecha si aplica
+        setLoading(false);
+      } catch (error) {
+        console.error('Error al obtener estadísticas de donaciones:', error);
+        setErrorMessage('No se pudieron cargar las estadísticas de donaciones.');
+        setLoading(false);
+      }
+    };
 
-  const reorderedLabels = selectedIndex !== null
-    ? [
-        originalLabels[selectedIndex],
-        ...originalLabels.filter((_, index) => index !== selectedIndex)
-      ]
-    : originalLabels;
+    fetchDonationsStats();
+  }, []);
 
-  const reorderedColors = selectedIndex !== null
-    ? [
-        '#007b8a',
-        ...originalColors.filter((_, index) => index !== selectedIndex)
-      ]
-    : originalColors;
+  useEffect(() => {
+    // Filtrar las donaciones cada vez que cambia la fecha seleccionada
+    processDonations(allDonations, selectedDate);
+  }, [selectedDate, allDonations]);
+
+  const processDonations = (donations, date) => {
+    const filteredDonations = date
+      ? donations.filter(
+          (donacion) =>
+            new Date(donacion.fechaDonacion).toISOString().split('T')[0] === date
+        )
+      : donations;
+
+    console.log('Donaciones filtradas:', filteredDonations);
+
+    const total = filteredDonations.reduce((sum, donacion) => sum + donacion.monto, 0); // Sumar todos los montos
+    const uniqueDonors = new Set(filteredDonations.map((donacion) => donacion.idUsuario)); // Usuarios únicos
+    const promedio = filteredDonations.length > 0 ? total / filteredDonations.length : 0; // Promedio del monto donado
+
+    // Actualizar los estados
+    setTotalDonations(total);
+    setNumberOfDonors(uniqueDonors.size);
+    setAverageDonation(promedio.toFixed(2));
+  };
+
+  const handleDateChange = (event) => {
+    const date = event.target.value;
+    console.log('Fecha seleccionada:', date); // Depuración
+    setSelectedDate(date);
+  };
 
   const chartData = {
-    labels: reorderedLabels,
+    labels: ['Total Donado', 'Número de Donantes', 'Donación Promedio'],
     datasets: [
       {
         label: 'Estadísticas de Donaciones',
-        data: reorderedData,
-        backgroundColor: reorderedColors,
+        data: [totalDonations, numberOfDonors, averageDonation],
+        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+        borderWidth: 1,
       },
     ],
   };
 
-  const handleCardClick = (index) => {
-    setSelectedIndex(index);
-  };
-
-  const handleDateChange = (event) => {
-    setSelectedDate(event.target.value);
-  };
-
   return (
     <>
-    <Navbar/>
-    <div className='bodyadmin'>
-      <div className="donations-statistics">
-        <h1 className="title">Estadísticas de Donaciones</h1>
-        <input 
-          type="date" 
-          className="date-picker" 
-          value={selectedDate} 
-          onChange={handleDateChange} 
-        />
-        <Bar data={chartData} />
+      <Navbar />
+      <div className="bodyadmin">
+        <div className="donations-statistics">
+          <h1 className="title">Estadísticas de Donaciones</h1>
+          <input
+            type="date"
+            className="date-picker"
+            value={selectedDate}
+            onChange={handleDateChange}
+          />
+          {loading ? (
+            <p style={{ textAlign: 'center', fontSize: '18px' }}>Cargando estadísticas...</p>
+          ) : errorMessage ? (
+            <p style={{ textAlign: 'center', color: 'red', fontSize: '18px' }}>{errorMessage}</p>
+          ) : (
+            <>
+              <div className="chart-container" style={{ width: '600px', margin: '0 auto' }}>
+                <Bar data={chartData} />
+              </div>
+              <div className="cards-container" style={{ marginTop: '20px' }}>
+                <div className="stat-cardD">
+                  <FaDollarSign className="card-icon" />
+                  <div className="card-info">
+                    <h2 className="card-title">Total Donado</h2>
+                    <p className="card-value">${totalDonations}</p>
+                  </div>
+                </div>
+                <div className="stat-cardD">
+                  <FaUsers className="card-icon" />
+                  <div className="card-info">
+                    <h2 className="card-title">Número de Donantes</h2>
+                    <p className="card-value">{numberOfDonors}</p>
+                  </div>
+                </div>
+                <div className="stat-cardD">
+                  <FaChartBar className="card-icon" />
+                  <div className="card-info">
+                    <h2 className="card-title">Donación Promedio</h2>
+                    <p className="card-value">${averageDonation}</p>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+        </div>
       </div>
-
-     
-      <div className="cards-container">
-        <div className="stat-cardD" onClick={() => handleCardClick(0)}>
-          <FaDollarSign className="card-icon" />
-          <div className="card-info">
-            <h2 className="card-title">Total Donado</h2>
-            <p className="card-value">${donationStats.totalDonations}</p>
-          </div>
-        </div>
-        <div className="stat-cardD" onClick={() => handleCardClick(1)}>
-          <FaUsers className="card-icon" />
-          <div className="card-info">
-            <h2 className="card-title">Número de Donantes</h2>
-            <p className="card-value">{donationStats.numberOfDonors}</p>
-          </div>
-        </div>
-        <div className="stat-cardD" onClick={() => handleCardClick(2)}>
-          <FaChartBar className="card-icon" />
-          <div className="card-info">
-            <h2 className="card-title">Donación Promedio</h2>
-            <p className="card-value">${donationStats.averageDonation}</p>
-          </div>
-        </div>
-      </div>
-    </div>
     </>
   );
 };
