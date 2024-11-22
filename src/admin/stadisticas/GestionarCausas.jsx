@@ -1,68 +1,77 @@
 import React, { useState, useEffect } from 'react';
-import './Causascss/GestionarCausas.css';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import Navbar from '../NarbarAdmin';
+import axios from 'axios';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-// Categorías estáticas con valores de ejemplo
-const categorias = [
-  { id: 1, nombre: 'Salud', count: 50 },
-  { id: 2, nombre: 'Conmemoraciones', count: 30 },
-  { id: 3, nombre: 'Emergencias', count: 20 },
-  { id: 4, nombre: 'Gastos educativos', count: 25 },
-  { id: 5, nombre: 'Animales', count: 15 },
-  { id: 6, nombre: 'Medioambiente', count: 10 },
-  { id: 7, nombre: 'Negocios', count: 5 },
-  { id: 8, nombre: 'Comunidad', count: 12 },
-  { id: 9, nombre: 'Competencias', count: 8 },
-  { id: 10, nombre: 'Artes creativas', count: 18 },
-  { id: 11, nombre: 'Eventos', count: 14 },
-  { id: 12, nombre: 'Deportes', count: 9 },
-  { id: 13, nombre: 'Causas religiosas', count: 6 },
-  { id: 14, nombre: 'Gastos familiares', count: 7 },
-  { id: 15, nombre: 'Viajes', count: 4 },
-  { id: 16, nombre: 'Voluntariado', count: 3 },
-  { id: 17, nombre: 'Deseos', count: 2 },
-  { id: 18, nombre: 'Tecnología', count: 1 },
-];
-
-// Generar datos para la gráfica de pastel
-const chartData = {
-  labels: categorias.map((categoria) => categoria.nombre),
-  datasets: [
-    {
-      label: 'Causas por Categoría',
-      data: categorias.map((categoria) => categoria.count),
-      backgroundColor: [
-        '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF',
-        '#FF9F40', '#4BC0C0', '#9966FF', '#FF6384', '#36A2EB',
-        '#FFCE56', '#FF9F40', '#4BC0C0', '#9966FF', '#FF6384',
-        '#36A2EB', '#FFCE56', '#FF9F40',
-      ],
-      borderWidth: 1,
-    },
-  ],
-};
-
 const CausesStatistics = () => {
+  const [categorias, setCategorias] = useState([]);
+  const [chartData, setChartData] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    const fetchCategorias = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/api/categorias/estadisticas');
+        setCategorias(response.data);
+
+        // Construir los datos para la gráfica
+        const labels = response.data.map((categoria) => categoria.nombre);
+        const data = response.data.map((categoria) => categoria.count);
+
+        setChartData({
+          labels: labels,
+          datasets: [
+            {
+              label: 'Causas por Categoría',
+              data: data,
+              backgroundColor: [
+                '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF',
+                '#FF9F40', '#4BC0C0', '#9966FF', '#FF6384', '#36A2EB',
+                '#FFCE56', '#FF9F40', '#4BC0C0', '#9966FF', '#FF6384',
+              ],
+              borderWidth: 1,
+            },
+          ],
+        });
+
+        setLoading(false);
+      } catch (error) {
+        console.error('Error al obtener las estadísticas de categorías:', error);
+        setErrorMessage('Ocurrió un error al cargar las estadísticas.');
+        setLoading(false);
+      }
+    };
+
+    fetchCategorias();
+  }, []);
+
   return (
     <>
       <Navbar />
       <div className="bodyadmin">
         <div className="causes-statistics">
           <h1 className="title">Estadísticas de Causas</h1>
-          <div style={{ width: '700px', margin: '0 auto' }}>
-            <Pie data={chartData} />
-          </div>
+
+          {loading ? (
+            <p style={{ textAlign: 'center', fontSize: '18px' }}>Cargando estadísticas...</p>
+          ) : errorMessage ? (
+            <p style={{ textAlign: 'center', color: 'red', fontSize: '18px' }}>{errorMessage}</p>
+          ) : (
+            <div style={{ width: '700px', margin: '0 auto' }}>
+              <Pie data={chartData} />
+            </div>
+          )}
         </div>
 
         <div className="cause-list">
-          <h2 className="title">Lista de Causas</h2>
-          <ul>
+          <h2 className="title">Lista de Causas por Categoría</h2>
+          <ul style={{ listStyleType: 'none', padding: 0, textAlign: 'center', fontSize: '18px' }}>
             {categorias.map((categoria) => (
-              <li key={categoria.id} className="cause-item">
+              <li key={categoria.id} style={{ marginBottom: '10px' }}>
                 {categoria.nombre} - {categoria.count} causas
               </li>
             ))}
