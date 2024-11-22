@@ -5,7 +5,7 @@ import Footer from '../Footer/Footer';
 import axios from 'axios';
 
 const CausaDetalle = () => {
-  const { id } = useParams(); // Obtiene el ID de la causa desde los parámetros de la URL
+  const { id } = useParams();
   const navigate = useNavigate();
   const [causa, setCausa] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
@@ -32,9 +32,11 @@ const CausaDetalle = () => {
     return <div>Cargando detalles de la causa...</div>;
   }
 
+  const progressPercentage = Math.min((causa.recaudado / causa.meta) * 100, 100).toFixed(2);
+
   return (
     <>
-    
+      
       <div style={{ maxWidth: '1500px', margin: '50px auto', padding: '20px' }}>
         <button
           className="back-button"
@@ -64,24 +66,36 @@ const CausaDetalle = () => {
               boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
             }}
           >
-            <h1 style={{ color: '#007c8c', textAlign: 'center', marginBottom: '20px' }}>{causa.nombreCausa}</h1>
+            <h1 style={{ color: '#007c8c', textAlign: 'center', marginBottom: '20px' }}>
+              {causa.nombreCausa}
+            </h1>
             <div style={{ marginBottom: '20px', display: 'flex', justifyContent: 'center' }}>
               <img
                 src={`http://localhost:3000${causa.portada}`}
                 alt={`Imagen de ${causa.nombreCausa}`}
-                style={{ width: '700px', height: '400px', borderRadius: '10px', objectFit: 'cover' }}
+                style={{
+                  width: '700px',
+                  height: '400px',
+                  borderRadius: '10px',
+                  objectFit: 'cover',
+                }}
               />
             </div>
-
-            <h3 style={{ fontSize: '20px', color: '#007c8c', marginBottom: '10px' }}>Causa creada por:</h3>
+            <h3 style={{ fontSize: '20px', color: '#007c8c', marginBottom: '10px' }}>
+              Causa creada por:
+            </h3>
             <h3 style={{ fontSize: '20px', color: '#333', marginBottom: '20px' }}>
               {causa.usuarioNombre || 'Desconocido'}
             </h3>
-
-            <h3 style={{ fontSize: '20px', color: '#007c8c', marginBottom: '10px' }}>Descripción:</h3>
-            <p style={{ fontSize: '20px', color: '#333', marginBottom: '20px' }}>{causa.descripcion}</p>
-
-            <h3 style={{ fontSize: '20px', color: '#007c8c', marginBottom: '10px' }}>Especificaciones para donaciones:</h3>
+            <h3 style={{ fontSize: '20px', color: '#007c8c', marginBottom: '10px' }}>
+              Descripción:
+            </h3>
+            <p style={{ fontSize: '20px', color: '#333', marginBottom: '20px' }}>
+              {causa.descripcion}
+            </p>
+            <h3 style={{ fontSize: '20px', color: '#007c8c', marginBottom: '10px' }}>
+              Especificaciones para donaciones:
+            </h3>
             <ul style={{ listStyleType: 'disc', paddingLeft: '20px', color: '#555', marginBottom: '20px' }}>
               {causa.tipoDonacion.split(',').map((tipo, index) => (
                 <li key={index} style={{ fontSize: '20px' }}>{tipo.trim()}</li>
@@ -107,8 +121,9 @@ const CausaDetalle = () => {
             <h2 style={{ color: '#333', fontSize: '24px', textAlign: 'center' }}>
               ${causa.recaudado || 0} recaudados
             </h2>
-            <p style={{ color: '#555', fontSize: '16px', textAlign: 'center' }}>Objetivo ${causa.meta || 0}</p>
-
+            <p style={{ color: '#555', fontSize: '16px', textAlign: 'center' }}>
+              Objetivo ${causa.meta || 0}
+            </p>
             <div
               style={{
                 width: '100%',
@@ -121,15 +136,17 @@ const CausaDetalle = () => {
             >
               <div
                 style={{
-                  width: `${(causa.recaudado / causa.meta) * 100 || 0}%`,
+                  width: `${progressPercentage}%`,
                   height: '100%',
                   backgroundColor: '#007c8c',
                 }}
               ></div>
             </div>
-
+            <p style={{ color: '#333', fontSize: '16px', textAlign: 'center' }}>
+              {progressPercentage}% alcanzado
+            </p>
             <button
-              onClick={() => navigate(`/paginadonar/${id}`)} // Redirige al DonarPage con el ID de la causa
+              onClick={() => navigate(`/paginadonar/${id}`)}
               style={{
                 backgroundColor: '#007c8c',
                 color: 'white',
