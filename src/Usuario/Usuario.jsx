@@ -5,7 +5,7 @@ import Navbar from '../navbar/navbar';
 import Footer from '../Footer/Footer';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './usuario.css';
+import './Usuario.css';
 import logo from '../assets/logo.webp';
 
 const Usuario = () => {
